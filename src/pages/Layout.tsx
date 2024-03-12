@@ -1,15 +1,18 @@
 import { Header } from "components/layout/Header";
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { NavigateFunction, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export const Layout = () => {
 
-    let navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
+    const location: any = useLocation();
 
     useEffect(() => {
         // 페이지 분기처리
-        navigate("/home");
-    }, [navigate]);
+        if(location.pathname === "/"){
+            navigate("/home");
+        }
+    }, [location, navigate]);
 
     return(
         <div className="flex flex-wrap justify-center">
