@@ -6,10 +6,12 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#c7bedd",
-          1: "#cab1cb",
-          2: "#d0c8e6",
-          3: "#beb8cd"
+          DEFAULT: "#d5bdaf",
+          1: "#e3d5ca",
+          2: "#f5ebe0",
+          3: "#d6ccc2",
+          4: "#edede9",
+          5: "#183153" //남색 버튼 색깔
         }
       }
     },

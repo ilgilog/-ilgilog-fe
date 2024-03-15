@@ -3,6 +3,7 @@ import { Layout } from "pages/Layout";
 import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { KakaoAuth } from "pages/KakaoAuth";
+import { EggChoice } from "pages/EggChoice";
 
 export const Router = () => {
 
@@ -15,6 +16,7 @@ export const Router = () => {
                     <Route path='login' element={<Login />} />
                 </Route>
                 <Route path="/login/auth" element={<KakaoAuth />} />
+                <Route path="/egg-choice" element={<EggChoice />} />
             </Routes>
         </BrowserRouter>
     )
