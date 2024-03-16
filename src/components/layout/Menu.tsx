@@ -5,7 +5,7 @@ export const Menu = () => {
 
     const location = useLocation();
     const path: string = location.pathname;
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isLogin, setIsLogin] = useState<boolean>(true);
 
     // 기본 메뉴
     const menuList = [
@@ -17,7 +17,7 @@ export const Menu = () => {
     // 로그인 후 서브 메뉴
     const subMenuList = [
         {name: "사용 방법", link: "/home"},
-        {name: "내 정보", link: "/home"},
+        {name: "내 정보", link: "/my"},
     ]
     // 비로그인시 메뉴 - 로그인 화면
     const guestMenuList1 = [

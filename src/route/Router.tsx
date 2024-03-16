@@ -4,6 +4,7 @@ import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { KakaoAuth } from "pages/KakaoAuth";
 import { EggChoice } from "pages/EggChoice";
+import { MyInfo } from "pages/MyInfo";
 
 export const Router = () => {
 
@@ -12,6 +13,7 @@ export const Router = () => {
             <Routes>
                 <Route path='/' element={<Layout/>}>
                     <Route path='home' element={<Home />} />
+                    <Route path='my' element={<MyInfo />} />
 
                     <Route path='login' element={<Login />} />
                 </Route>

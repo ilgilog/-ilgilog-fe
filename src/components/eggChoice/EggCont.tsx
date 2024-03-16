@@ -97,6 +97,10 @@ export const EggCont = () => {
                     input:checked + label img {
                         opacity: 1;
                     }
+                    .swal2-title{
+                        font-size: 22px;
+                        line-height: 1.2
+                    }
                 `}
             </style>
         </div>
