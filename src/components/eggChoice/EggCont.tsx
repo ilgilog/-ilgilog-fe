@@ -50,7 +50,7 @@ export const EggCont = () => {
     return(
         <div className="px-10 py-8 mt-10 w-[40%]" style={{
             borderRadius: "50px",
-            background: "linear-gradient(225deg, #cfcfcf, #f6f6f6)",
+            background: "#e0e0e0",
             boxShadow: "-20px 20px 60px #c4c4c4,20px -20px 60px #ffffff"
         }}>
             <ul className="flex justify-between items-center">
@@ -96,10 +96,6 @@ export const EggCont = () => {
                 {`
                     input:checked + label img {
                         opacity: 1;
-                    }
-                    .swal2-title{
-                        font-size: 22px;
-                        line-height: 1.2
                     }
                 `}
             </style>
