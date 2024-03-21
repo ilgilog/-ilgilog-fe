@@ -46,15 +46,6 @@ export const MyInfo = () => {
                     type="button"
                     onClick={handleClick}
                 >탈퇴하기</button>
-
-            <style>
-                {`
-                    .swal2-title{
-                        font-size: 22px;
-                        line-height: 1.2
-                    }
-                `}
-            </style>
         </div>
     )
 }

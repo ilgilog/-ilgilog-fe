@@ -61,3 +61,7 @@ table {
   box-sizing: border-box;
   font-size: 18px;
 }
+.swal2-title{
+	font-size: 22px;
+	line-height: 1.2
+}

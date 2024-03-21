@@ -10,7 +10,7 @@ export const Menu = () => {
     // 기본 메뉴
     const menuList = [
         {name: "일기 쓰기", link: "/home"},
-        {name: "미니미", link: "/minime"},
+        {name: "미니홈", link: "/minime"},
         {name: "랭킹", link: "/rank"},
         {name: "공지", link: "/notice"},
     ]
