@@ -7,6 +7,7 @@ import { EggChoice } from "pages/EggChoice";
 import { MyInfo } from "pages/MyInfo";
 import { Notice } from "pages/Notice";
 import { Minime } from "pages/Minime";
+import { Ranking } from "pages/Ranking";
 
 export const Router = () => {
 
@@ -18,6 +19,7 @@ export const Router = () => {
                     <Route path='my' element={<MyInfo />} />
                     <Route path='notice' element={<Notice />} />
                     <Route path='minime' element={<Minime />} />
+                    <Route path='rank' element={<Ranking />} />
 
                     <Route path='login' element={<Login />} />
                 </Route>

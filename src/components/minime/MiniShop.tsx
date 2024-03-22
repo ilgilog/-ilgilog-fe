@@ -85,7 +85,7 @@ export const MiniShop = () => {
     return(
         <div>
             <h3 className="flex justify-center text-3xl mb-5">오브제</h3>
-            <ul className="notice-cont flex justify-center flex-wrap w-full m-auto h-[400px] overflow-y-scroll">
+            <ul className="scroll-cont flex justify-center py-5 flex-wrap w-full m-auto h-[400px] overflow-y-scroll">
                 {objetDummy.map((item, key) => (
                     <li key={item?.objetId} className="w-[25%] text-center mb-7">
                         <span className="block w-[80px] h-[80px] m-auto mb-2">
@@ -169,15 +169,15 @@ export const MiniShop = () => {
 
             <style>
                 {`
-                    .notice-cont::-webkit-scrollbar{
+                    .scroll-cont::-webkit-scrollbar{
                         width: 6px;
                         // display: none;
                     }
-                    .notice-cont::-webkit-scrollbar-thumb{
+                    .scroll-cont::-webkit-scrollbar-thumb{
                         background-color: #c7c7c7;
                         border-radius: 0.5rem;
                     }
-                    .notice-cont::-webkit-scrollbar-track{
+                    .scroll-cont::-webkit-scrollbar-track{
                         background-color: #e8e8e8;
                         border-radius: 1rem;
                     }

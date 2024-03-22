@@ -8,13 +8,23 @@ import Objet7 from "../../assets/objet/1/17.png";
 import Objet8 from "../../assets/objet/1/18.png";
 
 
-export const MiniHome = () => {
+type TProps = {
+    width: number;
+    height: number;
+    boxShadow: string;
+    borderRadius: string|number;
+}
+
+export const MiniHome = ({
+    width, height, boxShadow, borderRadius
+}: TProps) => {
 
     return(
-        <div className="w-[550px] h-[350px] m-auto overflow-hidden relative" style={{
-            borderRadius: "20px",
-            // background: "#e0e0e0",
-            boxShadow: "0px 0px 20px #c4c4c4"
+        <div className={` m-auto overflow-hidden relative`} style={{
+            borderRadius: borderRadius,
+            width: width,
+            height: height,
+            boxShadow: boxShadow
         }}>
             {/* 0 */}
             <span className="z-10 absolute left-[50%] bottom-[12%] translate-x-[-50%] w-[100px]">
