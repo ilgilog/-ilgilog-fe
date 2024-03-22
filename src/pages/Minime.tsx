@@ -14,7 +14,12 @@ export const Minime = () => {
                     isShared={isShared}
                     setIsShared={setIsShared}
                 />
-                <MiniHome />
+                <MiniHome
+                    width={550}
+                    height={350}
+                    boxShadow={"0px 0px 20px #c4c4c4"}
+                    borderRadius={20}
+                />
             </div>
             <div className="w-[1px] bg-gray-400"></div>
             <div className="w-[44%]">
