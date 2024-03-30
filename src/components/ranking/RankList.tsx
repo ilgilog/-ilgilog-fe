@@ -5,9 +5,9 @@ export const RankList = () => {
     const test = [1, 2, 3, 4, 5]
 
     return(
-        <ul className="grid grid-cols-3 gap-20 my-10 ml-[-34px] w-[1280px] absolute left-[50%] translate-x-[-50%]">
+        <ul className="grid grid-cols-3 gap-x-20 my-10 ml-[-34px] w-[1280px] absolute left-[50%] translate-x-[-50%]">
             {test?.map((item, key) => (
-                <li className="scale-75 origin-top w-[450px] m-auto">
+                <li className="scale-75 origin-top w-[450px] m-auto" key={key}>
                     <div className="w-full bg-white py-5 rounded-xl relative">
                         <div className="flex justify-start items-center px-5 pb-3 border-b-[1px] border-solid border-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-10 h-10">
@@ -28,7 +28,7 @@ export const RankList = () => {
                                 <input type="checkbox" id="favorite" name="favorite-checkbox" value="favorite-button" className="favorite-input" />
                                 <label htmlFor="favorite" className="container favorite-label">
                                     <div className="flex justify-start items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                         <span className="text-3xl ml-2">38 개</span>
                                         <div className="action ml-3">
                                             <span className="option-1 text-3xl">좋아요</span>
