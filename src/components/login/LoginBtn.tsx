@@ -5,8 +5,8 @@ export const LoginBtn = () => {
 
     const [isHover, setIsHover] = useState<boolean>(false);
     const rest_api_key: string|undefined = process.env.REACT_APP_KAKAO_API_KEY;
-    // const redirect_uri: string = 'http://localhost:3000/login/auth';
-    const redirect_uri: string = 'https://ilgilog-fe.vercel.app/login/auth';
+    const redirect_uri: string|undefined = process.env.REACT_APP_REDIRECT_URI;
+    // const redirect_uri: string = 'https://ilgilog-fe.vercel.app/login/auth';
     const kakaoURL: string = `https://kauth.kakao.com/oauth/authorize?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
     const handleLogin = ()=>{
