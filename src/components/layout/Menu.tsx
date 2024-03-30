@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Alert } from "utils/alert";
 
 export const Menu = () => {
 
     const location = useLocation();
     const path: string = location.pathname;
-    const [isLogin, setIsLogin] = useState<boolean>(true);
+    const navigate = useNavigate();
+    const [isLogin, setIsLogin] = useState<boolean>(false);
 
     // 기본 메뉴
     const menuList = [
@@ -30,6 +32,15 @@ export const Menu = () => {
         {name: "로그인", link: "/login"},
     ]
 
+    const handleClick = () => {
+        Alert.error({ 
+            title:  "준비중입니다!",
+            action: () => {
+                navigate(-1);
+            }
+        });
+    }
+
     return(
         <div className={`flex w-full ${path !== "/login" ? "justify-between" : "justify-end"}`}>
             {
@@ -44,7 +55,13 @@ export const Menu = () => {
             }
             <nav>
                 {(isLogin ? subMenuList : path === "/login" ? guestMenuList1 : guestMenuList2)?.map((menu, key) => (
-                    <Link to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary text-[#000]" : ""} rounded-md px-1 mx-2 last:mr-0 text-lg text-gray-500 hover:font-black hover:text-gray-800`} key={key} >
+                    <Link
+                        onClick={() => {
+                            if (menu.link === "/howtouse") {
+                                handleClick();
+                            }
+                        }} 
+                        to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary text-[#000]" : ""} rounded-md px-1 mx-2 last:mr-0 text-lg text-gray-500 hover:font-black hover:text-gray-800`} key={key} >
                         {menu?.name}
                     </Link>
                 ))}

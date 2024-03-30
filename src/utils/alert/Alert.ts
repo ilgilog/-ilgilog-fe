@@ -20,7 +20,14 @@ const success: TSwal = (args) => {
 };
 
 const error: TSwal = (args) => {
-    template({ icon: 'error', ...args, confirmButtonText: '확인' });
+    template({ 
+        icon: 'error', 
+        ...args, 
+        confirmButtonText: '확인',
+        confirmButtonColor: "#d5bdaf",
+        cancelButtonColor: "#c4c4c4",
+        width: 400,
+    });
 };
 
 const warning: TSwal = (args) => {

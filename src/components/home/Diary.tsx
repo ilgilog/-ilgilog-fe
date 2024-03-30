@@ -1,8 +1,19 @@
-import { weatherData, moodData } from "utils/data/radio"
-import { DiaryRadio } from "./DiaryRadio"
-import { DiaryTitle } from "./DiaryTitle"
+import { weatherData, moodData } from "utils/data/radio";
+import { DiaryRadio } from "./DiaryRadio";
+import { DiaryTitle } from "./DiaryTitle";
 
-export const Diary = () => {
+type TProps = {
+    textDate: string;
+    clickDate: string;
+}
+
+export const Diary = ({
+    textDate,
+    clickDate
+}: TProps) => {
+
+    console.log(clickDate)
+
     return(
         <div className="w-[52%] h-[76.5vh] p-[20px]" style={{
             borderRadius: "30px",
@@ -10,7 +21,7 @@ export const Diary = () => {
             boxShadow: "20px 20px 60px #bebebe, -20px -20px 60px #ffffff"
         }}>
             <DiaryTitle title="[ 날짜 ]">
-                <span className="text-[20px] ml-3">2024년 03월 30일 토요일</span>
+                <span className={`${textDate ? "text-[20px]" : "text-[18px] opacity-[.3]"} ml-3`}>{textDate ? textDate : "달력에서 날짜를 선택해주세요."}</span>
             </DiaryTitle>
             <DiaryTitle title="[ 날씨 ]">
                 <DiaryRadio

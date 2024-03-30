@@ -1,18 +1,20 @@
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
+import { useSelector, useDispatch } from "react-redux";
+import { setClickDate, setClickDateText } from "store/reducers/dateSlice";
 
 type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+type Value = ValuePiece | [ValuePiece, ValuePiece] | any;
 
 export const HomeCalendar = () => {
+
+    const dispatch = useDispatch();
     const today = new Date();
     const [date, setDate] = useState<Value>(today);
-    const [activeStartDate, setActiveStartDate] = useState<Date | null>(
-        new Date()
-    );
+    const [activeStartDate, setActiveStartDate] = useState<Date | null>(new Date());
     const attendDay = [
         "2024-03-10", 
         "2024-03-20", 
@@ -28,13 +30,34 @@ export const HomeCalendar = () => {
 
     const handleDateChange = (newDate: Value) => {
         setDate(newDate);
+        const dateObject = new Date(newDate);
+
+        const year = dateObject.getFullYear();
+        const month = (dateObject.getMonth() + 1 < 10) ? `0${dateObject.getMonth() + 1}` : dateObject.getMonth() + 1;
+        const day = (dateObject.getDate() < 10) ? `0${dateObject.getDate()}` : dateObject.getDate();
+        const dayOfWeek = dateObject.toLocaleDateString('ko-KR', { weekday: 'long' });
+
+        dispatch(setClickDate(`${year}-${month}-${day}`));
+        dispatch(setClickDateText(`${year}년 ${month}월 ${day}일 ${dayOfWeek}`));
     };
 
     const handleTodayClick = () => {
         const today = new Date();
         setActiveStartDate(today);
         setDate(today);
+
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1 < 10) ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
+        const day = (today.getDate() < 10) ? `0${today.getDate()}` : today.getDate();
+        const dayOfWeek = today.toLocaleDateString('ko-KR', { weekday: 'long' });
+
+        dispatch(setClickDate(`${year}-${month}-${day}`));
+        dispatch(setClickDateText(`${year}년 ${month}월 ${day}일 ${dayOfWeek}`));
     };
+
+    useEffect(() => {
+        handleTodayClick();
+    }, []);
 
     return (
         <div className="w-full flex justify-center relative">

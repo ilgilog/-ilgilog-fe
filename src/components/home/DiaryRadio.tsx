@@ -11,7 +11,7 @@ export const DiaryRadio = ({
     return(
         <div className="flex justify-start items-center flex-wrap">
             {data?.map((item: TDairyRadio) => (
-                <label htmlFor={item.key} className="flxe text-center w-[45px] cursor-pointer mx-1">
+                <label key={item.key} htmlFor={item.key} className="flxe text-center w-[45px] cursor-pointer mx-1">
                     <input
                         type="radio"
                         value={item.value}
