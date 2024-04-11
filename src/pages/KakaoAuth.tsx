@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { timestampNow } from "../utils/function";
 
 export const KakaoAuth = () => {
 
@@ -7,16 +8,23 @@ export const KakaoAuth = () => {
 
     useEffect(() => {
         const kakaoCode = new URL(window.location.href).searchParams.get("code");
-        console.log(kakaoCode)
-        try{
-            const res = axios.post(`${apiUrl}/api/user/login`, {}, {
-                headers: {
-                    Authorization: `Bearer ${kakaoCode}`
-                }
-            })
-        }catch{
-
+        const fetchData = async () => {
+            const body = {
+                timestamp: await timestampNow()
+            }
+            try{
+                const res = await axios.post(`${apiUrl}/api/user/login`, body, {
+                    headers: {
+                        authorization: `Bearer ${kakaoCode}`
+                    }
+                })
+                console.log(res.data.data)
+            }catch (err){
+                console.log(err)
+            }
         }
+
+        fetchData();
     }, [])
 
     return(
