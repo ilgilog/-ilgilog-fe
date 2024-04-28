@@ -49,7 +49,7 @@ export const Menu = () => {
     }
 
     return(
-        <div className={`flex w-full ${path !== "/login" ? "justify-between" : "justify-end"}`}>
+        <div className={`flex relative w-full ${path !== "/login" ? "justify-between" : "justify-end"}`}>
             {
                 path !== "/login" &&
                     <nav>
@@ -60,6 +60,7 @@ export const Menu = () => {
                         ))}
                     </nav>
             }
+            {path === "/home" && <p className="text-xl absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">안녕하세요, <b className="text-2xl">{userInfo?.nickName}</b> 님</p>}
             <nav>
                 {(isLogin ? subMenuList : path === "/login" ? guestMenuList1 : guestMenuList2)?.map((menu, key) => (
                     <Link

@@ -47,10 +47,10 @@ instance.interceptors.response.use(
         if(response.data.code === 1006){
             await tokenRefresh(instance);
             const userInfo: TStorageUserInfo = getStorageUserInfo();
-            // const accessToken = userInfo?.accessToken;
-            // response.config.headers.authorization = `Bearer ${accessToken}`;
-
-            // return instance(response.config);
+            const accessToken = userInfo?.accessToken;
+            response.config.headers.authorization = `Bearer ${accessToken}`;
+            
+            return await axios(response.config);
         }
 
         return response;

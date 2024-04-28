@@ -26,6 +26,7 @@ export const KakaoAuth = () => {
                 const result: TLoginResType = res?.data?.data;
                 const userInfo: {} = {
                     userId: result?.id,
+                    nickName: result?.nickName,
                     accessToken: result?.access_token,
                     refreshToken: result?.refresh_token,
                 }
