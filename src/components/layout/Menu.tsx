@@ -30,7 +30,7 @@ export const Menu = () => {
     ]
     // 비로그인시 메뉴 - 로그인 화면
     const guestMenuList1 = [
-        {name: "홈으로", link: "/home"},
+        {name: "홈으로", link: "/index"},
         {name: "사용 방법", link: "/howtouse"},
     ]
     // 비로그인시 메뉴 - 로그인 화면 아님
@@ -47,6 +47,16 @@ export const Menu = () => {
             }
         });
     }
+    const handleLogin = () => {
+        if(!isLogin){
+            Alert.error({ 
+                title:  "로그인이 필요한 서비스입니다.",
+                action: () => {
+                    navigate("/login");
+                }
+            });                 
+        }
+    }
 
     return(
         <div className={`flex relative w-full ${path !== "/login" ? "justify-between" : "justify-end"}`}>
@@ -54,7 +64,11 @@ export const Menu = () => {
                 path !== "/login" &&
                     <nav>
                         {menuList?.map((menu, key) => (
-                            <Link to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary" : ""} rounded-md px-1 mx-2 first:ml-0 text-xl hover:font-black`} key={key} >
+                            <Link onClick={() => {
+                                if(menu.link !== "/notice"){
+                                    handleLogin();
+                                }
+                            }} to={isLogin ? `${menu?.link}` : !isLogin && menu.link === "/notice" ? `${menu?.link}` : ""} className={`${path === menu?.link ? "bg-primary" : ""} rounded-md px-1 mx-2 first:ml-0 text-xl hover:font-black`} key={key} >
                                 {menu?.name}
                             </Link>
                         ))}

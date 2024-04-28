@@ -8,6 +8,7 @@ import { MyInfo } from "pages/MyInfo";
 import { Notice } from "pages/Notice";
 import { Minime } from "pages/Minime";
 import { Ranking } from "pages/Ranking";
+import { Index } from "pages/Index";
 
 export const Router = () => {
 
@@ -15,6 +16,7 @@ export const Router = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Layout/>}>
+                    <Route path='index' element={<Index />} />
                     <Route path='home' element={<Home />} />
                     <Route path='my' element={<MyInfo />} />
                     <Route path='notice' element={<Notice />} />

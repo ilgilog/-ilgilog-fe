@@ -10,7 +10,7 @@ export const Layout = () => {
     useEffect(() => {
         // 페이지 분기처리
         if(location.pathname === "/"){
-            navigate("/home");
+            navigate("/index");
         }
     }, [location, navigate]);
 
