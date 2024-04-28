@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Alert } from 'utils/alert/Alert';
 import { getStorageUserInfo, timestampNow } from 'utils/function';
-import { TStorageUserInfo } from './typs/login';
+import { TStorageUserInfo } from './types/login';
 import { tokenRefresh } from './axiosUtil';
 
 const instance = axios.create({

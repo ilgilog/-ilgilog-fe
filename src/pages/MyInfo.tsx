@@ -1,6 +1,6 @@
 import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
-import { TStorageUserInfo } from "api/typs/login";
+import { TStorageUserInfo } from "api/types/login";
 import { MyCont } from "components/myInfo/MyCont"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"

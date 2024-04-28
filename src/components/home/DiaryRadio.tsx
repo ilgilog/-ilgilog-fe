@@ -2,10 +2,12 @@ import { TDairyRadio } from "utils/data/type";
 
 type TProps = {
     data: [] | any;
+    onChange: any
 }
 
 export const DiaryRadio = ({
-    data
+    data,
+    onChange
 }: TProps) => {
 
     return(
@@ -18,6 +20,7 @@ export const DiaryRadio = ({
                         id={item.key}
                         name={item.name}
                         className="hidden"
+                        onChange={(e) => {onChange(item.value)}}
                     />
                     <span className="flex justify-center opacity-[.3]">{item.icon}</span>
                     <p className="text-[16px] text-[rgba(0,0,0,0.3)]">{item.key}</p>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { timestampNow } from "../utils/function";
 import { useNavigate } from "react-router-dom";
-import { TLoginResType } from "api/typs/login";
+import { TLoginResType } from "api/types/login";
 import { Alert } from "utils/alert/Alert";
 import { useDispatch } from "react-redux";
 

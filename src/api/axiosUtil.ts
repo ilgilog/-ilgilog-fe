@@ -1,5 +1,5 @@
 import { getStorageUserInfo, timestampNow } from "utils/function";
-import { TStorageUserInfo } from "./typs/login";
+import { TStorageUserInfo } from "./types/login";
 import { Alert } from "utils/alert/Alert";
 import axios from "axios";
 

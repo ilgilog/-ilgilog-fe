@@ -1,4 +1,4 @@
-import { TStorageUserInfo } from "api/typs/login";
+import { TStorageUserInfo } from "api/types/login";
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Alert } from "utils/alert";
