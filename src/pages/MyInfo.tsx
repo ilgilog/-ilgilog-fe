@@ -1,40 +1,96 @@
+import instance from "api/axios";
+import { axiosError } from "api/axiosUtil";
 import { MyCont } from "components/myInfo/MyCont"
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Alert } from "utils/alert"
 
 export const MyInfo = () => {
 
     const navigate = useNavigate();
+    const [userData, setUserData] = useState({
+        id: 0, 
+        email: "",
+        nickname: "",
+        point: 0
+    });
 
+    // GET 회원 정보 조회
+    const getUserProfile = async () => {
+        try{
+            const res = await instance.get("/api/user/profile");
+            if(res.data.result === "Y"){
+                const result = res.data.data[0];
+                setUserData({
+                    id: result.id,
+                    email: result.email,
+                    nickname: result.nickname,
+                    point: result.point
+                })
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+    // DELETE 탈퇴하기
+    const deleteUser = async () => {
+        try{
+            const res = await instance.delete("/api/user/secession");
+            console.log(res)
+            if(res.data.result === "Y"){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
+    // 탈퇴 버튼
     const handleClick = () => {
         Alert.warning({
             title:  "기록되었던 모든 정보가 삭제됩니다. \n 정말 탈퇴하시겠습니까?",
-            action: (result) => {
+            action: async (result) => {
                 if(result.isConfirmed){
-                    Alert.success({
-                        title:  "탈퇴가 완료되었습니다.",
-                        action: (result) => {
-                            if(result.isConfirmed){
-                                navigate("/home");
+                    // localStorage.removeItem("igl-user-info");
+                    const delBool = await deleteUser();
+                    if(delBool){
+                        Alert.success({
+                            title:  "탈퇴가 완료되었습니다.",
+                            action: (result) => {
+                                if(result.isConfirmed){
+                                    navigate("/login");
+                                }
                             }
-                        }
-                    })
+                        })
+                    }else{
+                        Alert.error({
+                            title:  "오류가 발생했습니다.",
+                        })
+                    }
                 }
             }
         })
     }
 
+    useEffect(() => {
+        getUserProfile();
+    }, []);
+
     return(
         <div className="flex flex-col m-auto w-[70%]">
             <h2 className="flex justify-center text-3xl mt-6 mb-8">내 정보</h2>
+            보유 포인트 : {userData?.point} Point
             <MyCont
                 title={"닉네임"}
-                content={"ehddn453"}
+                content={userData?.nickname}
                 disabled={false}
+                getUserProfile={getUserProfile}
             />
             <MyCont
                 title={"이메일"}
-                content={"ehddl453@naver.com"}
+                content={userData?.email}
                 disabled={true}
             />
 

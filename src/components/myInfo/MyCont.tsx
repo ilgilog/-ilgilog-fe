@@ -1,40 +1,86 @@
+import instance from "api/axios";
+import { axiosError } from "api/axiosUtil";
+import { useEffect, useState } from "react";
 import { Alert } from "utils/alert";
 
 type Tprops = {
     title: string;
     content: string;
     disabled: boolean;
+    getUserProfile?: any;
 }
 
 export const MyCont = ({
     title,
     content,
-    disabled
+    disabled,
+    getUserProfile
 }: Tprops) => {
 
+    const [nickName, setNickName] = useState<string>("");
+    if(title === "닉네임"){
+        console.log(content)
+    }
+    
+    // PUT 닉네임 변경
+    const changeNick = async () => {
+        try{
+            const res = await instance.put("/api/user/profile", {nickName: nickName});
+            if(res.data.result === "Y"){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
     const handleClick = () => {
+        console.log(nickName, )
         Alert.warning({
             title: "닉네임을 변경하시겠습니까?",
-            action: (result) => {
+            action: async (result) => {
                 if(result.isConfirmed){
-                    Alert.success({
-                        title:  "닉네임이 변경되었습니다.",
-                        action: (result) => {
-                            if(result.isConfirmed){
-                                // 정보 다시 불러오기
-
-                            }
+                    if(nickName !== ""){
+                        const delBool = await changeNick();
+                        if(delBool){
+                            Alert.success({
+                                title:  "닉네임이 변경되었습니다.",
+                                action: (result) => {
+                                    if(result.isConfirmed){
+                                        // 정보 다시 불러오기
+                                        getUserProfile();
+                                    }
+                                }
+                            })
+                        }else{
+                            Alert.error({
+                                title:  "오류가 발생했습니다.",
+                            })
                         }
-                    })
+                    }else{
+                        Alert.error({
+                            title:  "닉네임을 입력해주세요.",
+                        })
+                    }
                 }
             }
         })
     }
 
+    useEffect(() => {
+        if(title === "닉네임"){
+            
+        }
+    }, []);
+
     return (
         <div className="flex justify-center items-center mb-5 relative">
             <h3 className="text-2xl mr-5">{title}</h3>
-            <input type="text" defaultValue={content} disabled={disabled} />
+            <input type="text" defaultValue={content} disabled={disabled} onChange={(e) => {
+                title === "닉네임" && setNickName(e.target.value);
+            }} />
             {title === "닉네임" &&
                 <button 
                     className="absolute right-[22%] top-50% cursor-pointer transition-all bg-primary text-white px-6 py-1 rounded-lg

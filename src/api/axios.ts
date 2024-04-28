@@ -1,14 +1,11 @@
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
 import { Alert } from 'utils/alert/Alert';
 import { getStorageUserInfo, timestampNow } from 'utils/function';
 import { TStorageUserInfo } from './typs/login';
 import { tokenRefresh } from './axiosUtil';
 
-const navigate = useNavigate();
-
 const instance = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URL}`,
+    baseURL: `${process.env.REACT_APP_API_URI}`,
     timeout: 1000,
 })
 
@@ -23,16 +20,20 @@ instance.interceptors.request.use(
             Alert.error({ 
                 title: "오류가 발생했습니다.",
                 action: () => {
-                    navigate("/login");
+                    window.location.href = "/login";
                 }
             });
             return config;
         }
 
         config.headers["Content-Type"] = "application/json"
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-        config.params = { ...config.params, timestamp: timestamp };
+        config.headers['authorization'] = `Bearer ${accessToken}`;
         config.withCredentials = true;
+
+        config.data = { ...config.data, timestamp: timestamp };
+        if (config.method && config.method.toLowerCase() === 'get') {
+            config.params = { ...config.params, timestamp: timestamp };
+        }
 
         return config;
     },
@@ -42,46 +43,23 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(
-    (response) => {
-        if (response.status === 404) {
-            console.log('404 페이지로 넘어가야 함!');
+    async (response) => {
+        if(response.data.code === 1006){
+            await tokenRefresh(instance);
+            const userInfo: TStorageUserInfo = getStorageUserInfo();
+            const accessToken = userInfo?.accessToken;
+            response.config.headers.authorization = `Bearer ${accessToken}`;
+
+            return instance(response.config);
         }
 
         return response;
     },
     async (error) => {
-        console.log("axios template error -->", error);
-        // if (error.response?.status === 401) {
-
-        // }
-        // auth 토큰 만료, refresh 토큰 정상 -> auth 토큰 갱신
-        if (error.response?.status === 412) {
-            await tokenRefresh(instance);
-            const userInfo: TStorageUserInfo = getStorageUserInfo();
-            const accessToken = userInfo?.accessToken;
-            error.config.headers.Authorization = `Bearer ${accessToken}`;
-
-            return instance(error.config);
-        }else if (error.response?.status === 413) {
-            Alert.error({ 
-                title: "로그인 시간이 만료되었습니다.",
-                action: () => {
-                    navigate("/login");
-                }
-            });
-        }
+        console.log("axios template error --> ", error);
         
         return Promise.reject(error);
     }
 );
 
 export default instance;
-
-// async function getUser() {
-//     try {
-//       const response = await instance.get('/api/user');
-//       console.log(response);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }

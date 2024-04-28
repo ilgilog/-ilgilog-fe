@@ -27,8 +27,8 @@ export const KakaoAuth = () => {
                 console.log(result)
                 const userInfo: {} = {
                     userId: result?.id,
-                    accessToken: result?.accessToken,
-                    refreshToken: result?.refreshToken,
+                    accessToken: result?.access_token,
+                    refreshToken: result?.refresh_token,
                 }
                 localStorage.setItem("igl-user-info", JSON.stringify(userInfo));
 

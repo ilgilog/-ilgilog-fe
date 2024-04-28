@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import Egg1 from "../../assets/images/minime/1-egg.png";
 import Egg2 from "../../assets/images/minime/2-egg.png";
 import Egg3 from "../../assets/images/minime/3-egg.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "utils/alert";
+import { axiosError } from "api/axiosUtil";
+import instance from "api/axios";
 
 export const EggCont = () => {
 
@@ -28,6 +30,15 @@ export const EggCont = () => {
     const navigate = useNavigate();
     const [eggId, setEggId] = useState<string>("");
 
+    const getEggList = async () => {
+        try{
+            const res = await instance.get("/api/user/minime");
+            console.log(res)
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
     const handleClick = () => {
         Alert.warning({ 
             title:  "결정하시겠습니까?",
@@ -46,6 +57,10 @@ export const EggCont = () => {
             }
         });
     }
+
+    useEffect(() => {
+        getEggList();
+    }, []);
 
     return(
         <div className="px-10 py-8 mt-10 w-[40%]" style={{

@@ -3,8 +3,8 @@ export type TLoginResType = {
     email: string;
     nickname: string;
     firstLogin: 0 | 1;
-    accessToken: string;
-    refreshToken: string;
+    access_token: string;
+    refresh_token: string;
 };
 
 export type TStorageUserInfo = {
