@@ -28,12 +28,32 @@ export const EggCont = () => {
     ]
 
     const navigate = useNavigate();
+    const [eggList, setEggList] = useState<any[]>([]);
     const [eggId, setEggId] = useState<string>("");
 
+    // GET 알 조회
     const getEggList = async () => {
         try{
             const res = await instance.get("/api/user/minime");
+            if(res.data.result === "Y"){
+                setEggList(res.data.data);
+            }
             console.log(res)
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+    // POST 알 선택
+    const postEggChoice = async () => {
+        try{
+            const res = await instance.post("/api/user/minime", {id: eggId});
+            console.log(res)
+            if(res.data.result === "Y"){
+                return true;
+            }else{
+                return false;
+            }
+            
         }catch(err: any){
             axiosError(err.message);
         }
@@ -42,17 +62,19 @@ export const EggCont = () => {
     const handleClick = () => {
         Alert.warning({ 
             title:  "결정하시겠습니까?",
-            action: (result) => {
+            action: async (result) => {
                 if(result.isConfirmed){
-                    console.log(eggId);
-                    Alert.success({
-                        title:  "미니미 선택이 완료되었습니다.",
-                        action: (result) => {
-                            if(result.isConfirmed){
-                                navigate("/home");
+                    const bool = await postEggChoice();
+                    if(bool){
+                        Alert.success({
+                            title:  "미니미 선택이 완료되었습니다.",
+                            action: (result) => {
+                                if(result.isConfirmed){
+                                    navigate("/home");
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
             }
         });
@@ -69,11 +91,11 @@ export const EggCont = () => {
             boxShadow: "-20px 20px 60px #c4c4c4,20px -20px 60px #ffffff"
         }}>
             <ul className="flex justify-between items-center">
-                {eggData?.map((item, key) => (
+                {eggList?.map((item, key) => (
                     <li key={item?.id} className="flex justify-center m-3">
                         <input type="radio" name="egg" id={item?.id} className="hidden" onChange={() => setEggId(item.id)} />
                         <label htmlFor={item?.id} className="cursor-pointer block p-3">
-                            <img className="opacity-20 duration-300" src={item?.img} alt={item?.title} />
+                            <img className="opacity-20 duration-300" src={item?.image} alt={item?.id} />
                         </label>
                     </li>
                 ))}

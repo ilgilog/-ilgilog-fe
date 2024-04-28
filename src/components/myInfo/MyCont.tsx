@@ -14,13 +14,10 @@ export const MyCont = ({
     title,
     content,
     disabled,
-    getUserProfile
+    getUserProfile,
 }: Tprops) => {
 
     const [nickName, setNickName] = useState<string>("");
-    if(title === "닉네임"){
-        console.log(content)
-    }
     
     // PUT 닉네임 변경
     const changeNick = async () => {
@@ -37,7 +34,6 @@ export const MyCont = ({
     }
 
     const handleClick = () => {
-        console.log(nickName, )
         Alert.warning({
             title: "닉네임을 변경하시겠습니까?",
             action: async (result) => {
@@ -54,26 +50,16 @@ export const MyCont = ({
                                     }
                                 }
                             })
-                        }else{
-                            Alert.error({
-                                title:  "오류가 발생했습니다.",
-                            })
                         }
                     }else{
                         Alert.error({
-                            title:  "닉네임을 입력해주세요.",
+                            title:  "닉네임을 확인해주세요.",
                         })
                     }
                 }
             }
         })
     }
-
-    useEffect(() => {
-        if(title === "닉네임"){
-            
-        }
-    }, []);
 
     return (
         <div className="flex justify-center items-center mb-5 relative">

@@ -53,9 +53,9 @@ export const MyInfo = () => {
             title:  "기록되었던 모든 정보가 삭제됩니다. \n 정말 탈퇴하시겠습니까?",
             action: async (result) => {
                 if(result.isConfirmed){
-                    // localStorage.removeItem("igl-user-info");
                     const delBool = await deleteUser();
                     if(delBool){
+                        localStorage.removeItem("igl-user-info");
                         Alert.success({
                             title:  "탈퇴가 완료되었습니다.",
                             action: (result) => {
@@ -63,10 +63,6 @@ export const MyInfo = () => {
                                     navigate("/login");
                                 }
                             }
-                        })
-                    }else{
-                        Alert.error({
-                            title:  "오류가 발생했습니다.",
                         })
                     }
                 }
@@ -81,7 +77,6 @@ export const MyInfo = () => {
     return(
         <div className="flex flex-col m-auto w-[70%]">
             <h2 className="flex justify-center text-3xl mt-6 mb-8">내 정보</h2>
-            보유 포인트 : {userData?.point} Point
             <MyCont
                 title={"닉네임"}
                 content={userData?.nickname}

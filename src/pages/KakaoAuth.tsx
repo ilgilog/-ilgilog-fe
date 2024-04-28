@@ -24,7 +24,6 @@ export const KakaoAuth = () => {
                     }
                 });
                 const result: TLoginResType = res?.data?.data;
-                console.log(result)
                 const userInfo: {} = {
                     userId: result?.id,
                     accessToken: result?.access_token,
@@ -38,7 +37,6 @@ export const KakaoAuth = () => {
                     navigate("/home");
                 }
             }catch (err: any){
-                console.log(err)
                 Alert.error({ 
                     title: err?.message,
                     action: () => {
