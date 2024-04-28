@@ -1,7 +1,12 @@
 import axios from 'axios'
-import { timestampNow } from 'utils/function';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from 'utils/alert/Alert';
+import { getStorageUserInfo, timestampNow } from 'utils/function';
+import { TStorageUserInfo } from './typs/login';
+import { tokenRefresh } from './axiosUtil';
 
-// 1번
+const navigate = useNavigate();
+
 const instance = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}`,
     timeout: 1000,
@@ -9,13 +14,25 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     async (config) => {
-        const accessToken = "12345";
+
+        const userInfo: TStorageUserInfo = getStorageUserInfo();
+        const accessToken: string = userInfo.accessToken;
         const timestamp = await timestampNow();
 
+        if (!accessToken) {
+            Alert.error({ 
+                title: "오류가 발생했습니다.",
+                action: () => {
+                    navigate("/login");
+                }
+            });
+            return config;
+        }
+
         config.headers["Content-Type"] = "application/json"
-        config.params = { ...config.params, timestamp: timestamp };
         config.headers['Authorization'] = `Bearer ${accessToken}`;
-        // config.withCredentials = true
+        config.params = { ...config.params, timestamp: timestamp };
+        config.withCredentials = true;
 
         return config;
     },
@@ -33,19 +50,27 @@ instance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        if (error.response?.status === 401) {
-            // if (isTokenExpired()) await tokenRefresh();
+        console.log("axios template error -->", error);
+        // if (error.response?.status === 401) {
 
-            // const accessToken = getToken();
+        // }
+        // auth 토큰 만료, refresh 토큰 정상 -> auth 토큰 갱신
+        if (error.response?.status === 412) {
+            await tokenRefresh(instance);
+            const userInfo: TStorageUserInfo = getStorageUserInfo();
+            const accessToken = userInfo?.accessToken;
+            error.config.headers.Authorization = `Bearer ${accessToken}`;
 
-            // error.config.headers = {
-            //     'Content-Type': 'application/json',
-            //     Authorization: `Bearer ${accessToken}`,
-            // };
-
-            const response = await axios.request(error.config);
-            return response;
+            return instance(error.config);
+        }else if (error.response?.status === 413) {
+            Alert.error({ 
+                title: "로그인 시간이 만료되었습니다.",
+                action: () => {
+                    navigate("/login");
+                }
+            });
         }
+        
         return Promise.reject(error);
     }
 );
@@ -54,7 +79,6 @@ export default instance;
 
 // async function getUser() {
 //     try {
-//       // 위에서 지정한 baseURL 뒤에 다음 URL이 붙는다.
 //       const response = await instance.get('/api/user');
 //       console.log(response);
 //     } catch (error) {

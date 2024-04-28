@@ -1,8 +1,14 @@
 export type TLoginResType = {
-    userId: number;
+    id: number;
     email: string;
     nickname: string;
-    imageUrl: string;
+    firstLogin: 0 | 1;
+    accessToken: string;
+    refreshToken: string;
+};
+
+export type TStorageUserInfo = {
+    userId: number;
     accessToken: string;
     refreshToken: string;
 };
