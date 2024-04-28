@@ -25,7 +25,6 @@ export const Diary = ({
     const [mood, setMood] = useState<number>(0);
 
     const [isEdit, setIsEdit] = useState(false);
-    console.log(weather, mood)
 
     // GET 일기 조회
     const getDiary = async () => {

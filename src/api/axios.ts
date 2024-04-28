@@ -57,6 +57,15 @@ instance.interceptors.response.use(
     },
     async (error) => {
         console.log("axios template error --> ", error);
+
+        if(error.response.status === 404){
+            // Alert.error({ 
+            //     title: "404 ERROR",
+            //     action: () => {
+            //         window.location.href = "/login";
+            //     }
+            // });
+        }
         
         return Promise.reject(error);
     }
