@@ -1,4 +1,4 @@
-import { TStorageUserInfo } from "api/typs/login";
+import { TStorageUserInfo } from "api/types/login";
 
 export const timestampNow = async () => {
     let date_timestamp = new Date()

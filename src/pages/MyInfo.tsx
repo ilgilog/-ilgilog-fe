@@ -1,13 +1,16 @@
 import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
+import { TStorageUserInfo } from "api/types/login";
 import { MyCont } from "components/myInfo/MyCont"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Alert } from "utils/alert"
+import { getStorageUserInfo } from "utils/function";
 
 export const MyInfo = () => {
 
     const navigate = useNavigate();
+    const userInfo: TStorageUserInfo = getStorageUserInfo();
     const [userData, setUserData] = useState({
         id: 0, 
         email: "",
@@ -27,6 +30,14 @@ export const MyInfo = () => {
                     nickname: result.nickname,
                     point: result.point
                 })
+                const newUserInfo: {} = {
+                    userId: userInfo?.userId,
+                    nickName: result.nickname,
+                    accessToken: userInfo?.accessToken,
+                    refreshToken: userInfo?.refreshToken,
+                }
+        
+                localStorage.setItem('igl-user-info', JSON.stringify(newUserInfo));
             }
         }catch(err: any){
             axiosError(err.message);

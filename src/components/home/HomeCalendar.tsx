@@ -5,6 +5,8 @@ import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setClickDate, setClickDateText } from "store/reducers/dateSlice";
+import { axiosError } from "api/axiosUtil";
+import instance from "api/axios";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece] | any;
@@ -15,18 +17,8 @@ export const HomeCalendar = () => {
     const today = new Date();
     const [date, setDate] = useState<Value>(today);
     const [activeStartDate, setActiveStartDate] = useState<Date | null>(new Date());
-    const attendDay = [
-        "2024-03-10", 
-        "2024-03-20", 
-        "2024-03-21", 
-        "2024-03-22", 
-        "2024-03-23", 
-        "2024-03-24", 
-        "2024-03-25", 
-        "2024-03-26", 
-        "2024-03-28", 
-        "2024-03-30"
-    ];
+    const [activeMonth, setActiveMonth] = useState(moment(activeStartDate).format('YYYY-MM'));
+    const [attendDay, setAttendDay] = useState([]);
 
     const handleDateChange = (newDate: Value) => {
         setDate(newDate);
@@ -55,9 +47,31 @@ export const HomeCalendar = () => {
         dispatch(setClickDateText(`${year}년 ${month}월 ${day}일 ${dayOfWeek}`));
     };
 
+    const getActiveMonth = (activeStartDate: moment.MomentInput) => {
+        const newActiveMonth = moment(activeStartDate).format('YYYY-MM');
+        setActiveMonth(newActiveMonth);
+    };
+
+    // GET 당월 일기 조회
+    const getMonthDiary = async () => {
+        try{
+            const res = await instance.get("/api/main/calendar", {params: {date: activeMonth}});
+            if(res.data.result === "Y"){
+                setAttendDay(res.data.data);
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
     useEffect(() => {
         handleTodayClick();
     }, []);
+    useEffect(() => {
+        activeMonth && getMonthDiary();
+    }, [activeMonth]);
+
+
 
     return (
         <div className="w-full flex justify-center relative">
@@ -77,7 +91,10 @@ export const HomeCalendar = () => {
                     activeStartDate === null ? undefined : activeStartDate
                 }
                 onActiveStartDateChange={({ activeStartDate }) =>
-                    setActiveStartDate(activeStartDate)
+                    {
+                        setActiveStartDate(activeStartDate)
+                        getActiveMonth(activeStartDate)
+                    }
                 }
                 // 오늘 날짜에 '오늘' 텍스트 삽입하고 출석한 날짜에 점 표시를 위한 설정
                 tileContent={({ date, view }) => {

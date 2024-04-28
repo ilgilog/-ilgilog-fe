@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Alert } from 'utils/alert/Alert';
 import { getStorageUserInfo, timestampNow } from 'utils/function';
-import { TStorageUserInfo } from './typs/login';
+import { TStorageUserInfo } from './types/login';
 import { tokenRefresh } from './axiosUtil';
 
 const instance = axios.create({
@@ -47,16 +47,25 @@ instance.interceptors.response.use(
         if(response.data.code === 1006){
             await tokenRefresh(instance);
             const userInfo: TStorageUserInfo = getStorageUserInfo();
-            // const accessToken = userInfo?.accessToken;
-            // response.config.headers.authorization = `Bearer ${accessToken}`;
-
-            // return instance(response.config);
+            const accessToken = userInfo?.accessToken;
+            response.config.headers.authorization = `Bearer ${accessToken}`;
+            
+            return await axios(response.config);
         }
 
         return response;
     },
     async (error) => {
         console.log("axios template error --> ", error);
+
+        if(error.response.status === 404){
+            // Alert.error({ 
+            //     title: "404 ERROR",
+            //     action: () => {
+            //         window.location.href = "/login";
+            //     }
+            // });
+        }
         
         return Promise.reject(error);
     }
