@@ -1,7 +1,7 @@
 import { weatherData, moodData } from "utils/data/radio";
 import { DiaryRadio } from "./DiaryRadio";
 import { DiaryTitle } from "./DiaryTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "utils/alert/Alert";
 import { axiosError } from "api/axiosUtil";
 import instance from "api/axios";
@@ -24,7 +24,33 @@ export const Diary = ({
     const [weather, setWeather] = useState<number>(0);
     const [mood, setMood] = useState<number>(0);
 
-    // POST 일기 등록
+    const [isEdit, setIsEdit] = useState(false);
+    console.log(weather, mood)
+
+    // GET 일기 조회
+    const getDiary = async () => {
+        try{
+            const res = await instance.get("/api/main/diary", {params : {date : clickDate}});
+            if(res.data.result === "Y"){
+                const diaryData = res.data.data[0];
+                setTitle(diaryData?.title);
+                setContent(diaryData?.description);
+                setWeather(diaryData?.weather);
+                setMood(diaryData?.mood);
+                setIsEdit(true);
+            }else{
+                setTitle("");
+                setContent("");
+                setWeather(0);
+                setMood(0);
+                setIsEdit(false);
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
+    // POST|PUT 일기 등록
     const registerDiary = async () => {
         const requestData: TDiaryReqType = {
             date: clickDate,
@@ -33,8 +59,13 @@ export const Diary = ({
             weather: weather,
             mood: mood
         }
+        const method = isEdit ? 'PUT' : 'POST';
         try{
-            const res = await instance.post("/api/main/diary", requestData);
+            const res = await instance.request({
+                method: method,
+                url: "/api/main/diary",
+                data: requestData
+            });
             if(res.data.result === "Y"){
                 return true;
             }else{
@@ -50,16 +81,16 @@ export const Diary = ({
         if(title !== "" && content !== "" && weather !== 0 && mood !== 0){
             // 일기 등록
             Alert.warning({ 
-                title:  `${textDate}의 일기를 \n 등록하시겠습니까?`,
+                title:  `${textDate}의 일기를 \n ${isEdit ? "수정" : "등록"}하시겠습니까?`,
                 action: async (result) => {
                     if(result.isConfirmed){
                         const registerBool = await registerDiary();
                         if(registerBool){
                             Alert.success({
-                                title:  "등록이 완료되었습니다.",
+                                title:  `${isEdit ? "수정" : "등록"}이 완료되었습니다.`,
                                 action: (result) => {
                                     if(result.isConfirmed){
-                                        navigate("/home");
+                                        getDiary();
                                     }
                                 }
                             })
@@ -79,6 +110,10 @@ export const Diary = ({
         }
     }
 
+    useEffect(() => {
+        getDiary();
+    }, [clickDate]);
+
     return(
         <div className="w-[52%] h-[76.5vh] p-[20px]" style={{
             borderRadius: "30px",
@@ -92,12 +127,14 @@ export const Diary = ({
                 <DiaryRadio
                     data={weatherData}
                     onChange={setWeather}
+                    defaultData={weather}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 기분 ]">
                 <DiaryRadio
                     data={moodData}
                     onChange={setMood}
+                    defaultData={mood}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 제목 ]">
@@ -106,6 +143,7 @@ export const Diary = ({
                     id="title"
                     className="ml-3 text-[22px] px-3 bg-transparent outline-none border-b-[1px] border-[#c4c4c4] w-[80%]"
                     onChange={(e) => setTitle(e.target.value)}
+                    value={title}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 내용 ]">
@@ -113,6 +151,7 @@ export const Diary = ({
                     id="content"
                     className="scroll-cont resize-none ml-3 text-[20px] leading-[1] p-3 bg-transparent outline-none border-[1px] border-[#c4c4c4] w-[80%] min-h-[40vh]"
                     onChange={(e) => setContent(e.target.value)}
+                    value={content}
                 ></textarea>
             </DiaryTitle>
             
@@ -125,7 +164,7 @@ export const Diary = ({
                     border-b-[4px] hover:brightness-110 
                     active:border-b-[2px] active:brightness-90"
                     onClick={handleClick}
-                >일기 등록</button>
+                >{isEdit ? "일기 수정" : "일기 등록"}</button>
             </div>
 
             <style>
