@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { TStorageUserInfo } from "api/typs/login";
+import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Alert } from "utils/alert";
+import { getStorageUserInfo } from "utils/function";
 
 export const Menu = () => {
 
     const location = useLocation();
     const path: string = location.pathname;
     const navigate = useNavigate();
+    const userInfo = getStorageUserInfo();
     const [isLogin, setIsLogin] = useState<boolean>(false);
+
+    useEffect(() => {
+        userInfo ? setIsLogin(true) : setIsLogin(false);
+    }, []);
 
     // 기본 메뉴
     const menuList = [
