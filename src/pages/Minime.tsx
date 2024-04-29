@@ -1,11 +1,30 @@
 import { MiniHome } from "components/minime/MiniHome"
 import { MiniShare } from "components/minime/MiniShare"
 import { MiniShop } from "components/minime/MiniShop";
-import { useState } from "react"
+import { Point } from "components/minime/Point";
+import { useEffect, useState } from "react";
+import { getActivation, getPoint } from "hooks/hooks";
 
 export const Minime = () => {
 
     const [isShared, setIsShared] = useState<boolean>(false);
+    const [point, setPoint] = useState<string>("");
+
+    // point 조회
+    const handlePoint = async () => {
+        const usePoint = await getPoint();
+        setPoint(usePoint);
+    }
+    // 미니홈 공유 여부 조회
+    const handleShare = async () => {
+        const useActive = await getActivation();
+        useActive === 1 ? setIsShared(true) : setIsShared(false);
+    }
+
+    useEffect(() => {
+        handlePoint();
+        handleShare();
+    }, []);
 
     return(
         <div className="flex mt-[3vw]">
@@ -22,8 +41,13 @@ export const Minime = () => {
                 />
             </div>
             <div className="w-[1px] bg-gray-400"></div>
-            <div className="w-[44%]">
-                <MiniShop />
+            <div className="w-[44%] relative">
+                <Point 
+                    point={point}
+                />
+                <MiniShop
+                    handlePoint={handlePoint}
+                />
             </div>            
         </div>
     )

@@ -14,3 +14,15 @@ export const getPoint = async () => {
         axiosError(err.message);
     }
 }
+
+// GET 미니홈 공유 여부 조회
+export const getActivation = async () => {
+    try{
+        const res = await instance.get("/api/homepy/activation");
+        if(res.data.result === "Y"){
+            return res.data.data[0]?.active;
+        }
+    }catch(err: any){
+        axiosError(err.message);
+    }
+}

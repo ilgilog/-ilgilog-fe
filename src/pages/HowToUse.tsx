@@ -20,7 +20,7 @@ export const HowToUse = () => {
         const offsetTop = element?.offsetTop;
         const winHeight = window.innerHeight;
         if (offsetTop !== undefined) {
-            if((offsetTop + winHeight) >= scrollPosition + 150 && (offsetTop - winHeight) <= scrollPosition - 100){
+            if((offsetTop + winHeight) >= scrollPosition && (offsetTop - winHeight) <= scrollPosition){
                 return true
             }else{
                 return false

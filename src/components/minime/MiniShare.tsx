@@ -1,3 +1,4 @@
+import instance from "api/axios";
 import { Alert } from "utils/alert";
 
 type TProps = {
@@ -10,21 +11,41 @@ export const MiniShare = ({
     setIsShared
 }: TProps) => {
 
-    const handleChange = () => {
+    // PUT 미니홈 공유하기
+    const handleShared = async (active: number) => {
+        try{
+            const res = await instance.put("/api/homepy/activation", {active: active});
+            if(res.data.result === "Y"){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(err: any){
+
+        }
+    }
+
+    const handleChange = async () => {
         if(isShared){
-            Alert.success({
-                title: "미니홈 공유가 취소되었습니다.",
-                action: () => {
-                    setIsShared(false);
-                }
-            })
+            const bool = await handleShared(0);
+            if(bool){
+                Alert.success({
+                    title: "미니홈 공유가 취소되었습니다.",
+                    action: () => {
+                        setIsShared(false);
+                    }
+                })
+            }
         }else{
-            Alert.success({
-                title: "내 미니홈이 랭킹에 등록되었습니다.",
-                action: () => {
-                    setIsShared(true);
-                }
-            })
+            const bool = await handleShared(1);
+            if(bool){
+                Alert.success({
+                    title: "내 미니홈이 랭킹에 등록되었습니다.",
+                    action: () => {
+                        setIsShared(true);
+                    }
+                })
+            }
         }
     }
 

@@ -49,8 +49,11 @@ export const tokenRefresh = async (instance: any) => {
 export const axiosError = (message: string) => {
     Alert.error({ 
         title: message,
-        action: () => {
-            
+        action: (result) => {
+            if(result.isConfirmed){
+                localStorage.removeItem("igl-user-info");
+                window.location.href = "/login";
+            }
         }
     });
 }

@@ -1,7 +1,7 @@
 import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
 import { useEffect, useState } from "react";
-import { getPoint } from "hooks/point";
+import { getPoint } from "hooks/hooks";
 
 export const Point = () => {
 
