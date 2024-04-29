@@ -22,12 +22,12 @@ export const RankList = ({
                             <span className="text-3xl block ml-3">ehddn453</span>
                         </div>
                         
-                        <MiniHome
+                        {/* <MiniHome
                             width={450}
                             height={300}
                             boxShadow={"none"}
                             borderRadius={0}
-                        />
+                        /> */}
 
                         <div className="px-5 pt-5 border-t-[1px] border-solid border-gray-400">
                             {!isPoint ? 

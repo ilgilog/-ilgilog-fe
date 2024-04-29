@@ -18,7 +18,7 @@ type TProps = {
     boxShadow: string;
     borderRadius: string|number;
     minime?: TMinimeType;
-    objet?: [];
+    objet: [];
 }
 
 export const MiniHome = ({
@@ -40,7 +40,7 @@ export const MiniHome = ({
             </span>
 
             {
-                objet?.length !== 0 && objet?.map((item: TObjetType, key) => (
+                objet?.length !== 0 && objet.map((item: TObjetType, key) => (
                     item?.objetPosition === 1 ? (<div key={item.objetId} className={`z-[1] w-full absolute top-0 h-[80%] bg-[${item?.objetUrl}]`}></div>) :
                     item?.objetPosition === 2 ? (<div key={item.objetId} className={`z-[1] w-full absolute bottom-0 h-[20%] bg-[${item?.objetUrl}]`}></div>) : 
                     item?.objetPosition === 3 ? (
