@@ -6,10 +6,12 @@ import { Alert } from "utils/alert";
 
 type TProps = {
     handlePoint: any;
+    getMiniHome: any;
 }
 
 export const MiniShop = ({
-    handlePoint
+    handlePoint,
+    getMiniHome
 }: TProps) => {
 
     const [objetList, setObjetList] = useState([]);
@@ -29,7 +31,6 @@ export const MiniShop = ({
                     buy: item.purchase === 1,
                     use: item.status === 1,
                 })));
-                console.log(list)
             }
         }catch(err: any){
             axiosError(err.message);
@@ -73,6 +74,7 @@ export const MiniShop = ({
                                 if(result.isConfirmed){
                                     getObjetShop();
                                     handlePoint();
+                                    getMiniHome();
                                 }
                             }
                         })

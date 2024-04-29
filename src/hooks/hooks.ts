@@ -6,7 +6,7 @@ export const getPoint = async () => {
     try{
         const res = await instance.get("/api/main/point");
         if(res.data.result === "Y"){
-            const point = res.data.data[0].point;
+            const point = res.data.data?.point;
             const viewPoint = point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             return viewPoint;
         }
@@ -20,7 +20,7 @@ export const getActivation = async () => {
     try{
         const res = await instance.get("/api/homepy/activation");
         if(res.data.result === "Y"){
-            return res.data.data[0]?.active;
+            return res.data.data?.activation;
         }
     }catch(err: any){
         axiosError(err.message);

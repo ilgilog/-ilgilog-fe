@@ -23,7 +23,7 @@ export const Diary = ({
     const [content, setContent] = useState<string>("");
     const [weather, setWeather] = useState<number>(0);
     const [mood, setMood] = useState<number>(0);
-
+    console.log(clickDate)
     const [isEdit, setIsEdit] = useState(false);
 
     // GET 일기 조회
@@ -110,7 +110,9 @@ export const Diary = ({
     }
 
     useEffect(() => {
-        getDiary();
+        if(clickDate){
+            getDiary();
+        }
     }, [clickDate]);
 
     return(

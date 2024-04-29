@@ -14,7 +14,7 @@ export const MiniShare = ({
     // PUT 미니홈 공유하기
     const handleShared = async (active: number) => {
         try{
-            const res = await instance.put("/api/homepy/activation", {active: active});
+            const res = await instance.put("/api/homepy/activation", {activation: active});
             if(res.data.result === "Y"){
                 return true;
             }else{

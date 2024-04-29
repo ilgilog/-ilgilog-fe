@@ -9,6 +9,7 @@ import Objet8 from "../../assets/objet/1/18.png";
 import { axiosError } from "api/axiosUtil";
 import { useEffect, useState } from "react";
 import { TMinimeType } from "api/types/minime";
+import { TObjetType } from "api/types/objet";
 
 
 type TProps = {
@@ -16,39 +17,15 @@ type TProps = {
     height: number;
     boxShadow: string;
     borderRadius: string|number;
+    minime?: TMinimeType;
+    objet?: [];
 }
 
 export const MiniHome = ({
-    width, height, boxShadow, borderRadius
+    width, height, boxShadow, borderRadius,
+    minime,
+    objet,
 }: TProps) => {
-
-    const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""});
-    const [objet, setObjet] = useState<[]>([]);
-
-    // GET 미니홈 조회
-    const getMiniHome = async () => {
-        try{
-            const res = await instance.get("/api/homepy");
-            if(res.data.result === "Y"){
-                console.log(res.data.data)
-                const minimeData = res.data.data.minime;
-                const objetData = res.data.data.objet;
-
-                setMinime({
-                    ...minime,
-                    minimeId: minimeData.id,
-                    minimeUrl: minimeData.url
-                });
-                setObjet(objetData);
-            }
-        }catch(err: any){
-            axiosError(err.message);
-        }
-    }
-
-    useEffect(() => {
-        getMiniHome();
-    }, []);
 
     return(
         <div className={` m-auto overflow-hidden relative`} style={{
@@ -61,34 +38,43 @@ export const MiniHome = ({
             <span className="z-10 absolute left-[50%] bottom-[12%] translate-x-[-50%] w-[100px]">
                 <img src={minime?.minimeUrl} alt="minime" />
             </span>
-            {/* 1 */}
-            <div className="w-full h-[80%] bg-[#f9e6d1]"></div>
-            {/* 2 */}
-            <div className="w-full h-[20%] bg-[#efdaba]"></div>
-            {/* 3 */}
-            <span className="absolute left-[15%] top-[15%] w-[100px]">
-                <img src={Objet3} alt="objet3" />
-            </span>
-            {/* 4 */}
-            <span className="absolute right-[13%] top-[20%] w-[80px]">
-                <img src={Objet4} alt="objet4" />
-            </span>
-            {/* 5 */}
-            <span className="absolute left-[0%] bottom-[15%] w-[80px]">
-                <img src={Objet5} alt="objet5" />
-            </span>
-            {/* 6 */}
-            <span className="absolute left-[13%] bottom-[15%] w-[90px]">
-                <img src={Objet6} alt="objet6" />
-            </span>
-            {/* 7 */}
-            <span className="absolute left-[30%] bottom-[15%] w-[60px]">
-                <img src={Objet7} alt="objet7" />
-            </span>
-            {/* 8 */}
-            <span className="absolute right-[12%] bottom-[15%] w-[110px]">
-                <img src={Objet8} alt="objet8" />
-            </span>
+
+            {
+                objet?.length !== 0 && objet?.map((item: TObjetType, key) => (
+                    item?.objetPosition === 1 ? (<div key={item.objetId} className={`z-[1] w-full absolute top-0 h-[80%] bg-[${item?.objetUrl}]`}></div>) :
+                    item?.objetPosition === 2 ? (<div key={item.objetId} className={`z-[1] w-full absolute bottom-0 h-[20%] bg-[${item?.objetUrl}]`}></div>) : 
+                    item?.objetPosition === 3 ? (
+                        <span key={item.objetId} className="z-[2] absolute left-[15%] top-[15%] w-[100px]">
+                            <img src={item.objetUrl} alt="objet3" />
+                        </span>
+                    ) : 
+                    item?.objetPosition === 4 ? (
+                        <span key={item.objetId} className="z-[2] absolute right-[13%] top-[20%] w-[80px]">
+                            <img src={item.objetUrl} alt="objet4" />
+                        </span>
+                    ) : 
+                    item?.objetPosition === 5 ? (
+                        <span key={item.objetId} className="z-[2] absolute left-[0%] bottom-[15%] w-[80px]">
+                            <img src={item.objetUrl} alt="objet5" />
+                        </span>
+                    ) : 
+                    item?.objetPosition === 6 ? (
+                        <span key={item.objetId} className="z-[2] absolute left-[13%] bottom-[15%] w-[90px]">
+                            <img src={item.objetUrl} alt="objet6" />
+                        </span>
+                    ) : 
+                    item?.objetPosition === 7 ? (
+                        <span key={item.objetId} className="z-[2] absolute left-[30%] bottom-[15%] w-[60px]">
+                            <img src={item.objetUrl} alt="objet7" />
+                        </span>
+                    ) : 
+                    item?.objetPosition === 8 ? (
+                        <span key={item.objetId} className="z-[2] absolute right-[12%] bottom-[15%] w-[110px]">
+                            <img src={item.objetUrl} alt="objet8" />
+                        </span>
+                    ) : null
+                ))
+            }
         </div>
     )
 }
