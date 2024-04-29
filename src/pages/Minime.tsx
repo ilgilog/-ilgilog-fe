@@ -3,7 +3,7 @@ import { MiniShare } from "components/minime/MiniShare"
 import { MiniShop } from "components/minime/MiniShop";
 import { Point } from "components/minime/Point";
 import { useEffect, useState } from "react";
-import { getPoint } from "hooks/point";
+import { getActivation, getPoint } from "hooks/hooks";
 
 export const Minime = () => {
 
@@ -15,9 +15,15 @@ export const Minime = () => {
         const usePoint = await getPoint();
         setPoint(usePoint);
     }
+    // 미니홈 공유 여부 조회
+    const handleShare = async () => {
+        const useActive = await getActivation();
+        useActive === 1 ? setIsShared(true) : setIsShared(false);
+    }
 
     useEffect(() => {
         handlePoint();
+        handleShare();
     }, []);
 
     return(

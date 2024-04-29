@@ -29,6 +29,7 @@ export const MiniShop = ({
                     buy: item.purchase === 1,
                     use: item.status === 1,
                 })));
+                console.log(list)
             }
         }catch(err: any){
             axiosError(err.message);

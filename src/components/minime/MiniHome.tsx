@@ -22,8 +22,8 @@ export const MiniHome = ({
     width, height, boxShadow, borderRadius
 }: TProps) => {
 
-    const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""})
-    const [objet, setObjet] = useState<any>()
+    const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""});
+    const [objet, setObjet] = useState<[]>([]);
 
     // GET 미니홈 조회
     const getMiniHome = async () => {
