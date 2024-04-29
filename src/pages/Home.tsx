@@ -14,6 +14,7 @@ export const Home = () => {
     const [isPossible, setIsPossible] = useState<boolean>(false);
 
     const currentDate = new Date();
+    console.log(currentDate)
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(currentDate.getDate() - 8);
 

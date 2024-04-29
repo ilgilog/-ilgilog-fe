@@ -22,7 +22,6 @@ export const Diary = ({
     isPossible
 }: TProps) => {
 
-    console.log(isPossible)
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [weather, setWeather] = useState<number>(0);
@@ -157,9 +156,9 @@ export const Diary = ({
             <DiaryTitle title="[ 내용 ]">
                 <textarea 
                     id="content"
-                    className="scroll-cont resize-none ml-3 text-[20px] leading-[1] p-3 bg-transparent outline-none border-[1px] border-[#c4c4c4] w-[80%] min-h-[40vh]"
+                    className="disabled:text-[#898989] disabled:text-center disabled:pt-24 scroll-cont resize-none ml-3 text-[20px] leading-[1] p-3 bg-transparent outline-none border-[1px] border-[#c4c4c4] w-[80%] min-h-[40vh]"
                     onChange={(e) => setContent(e.target.value)}
-                    value={content}
+                    value={!isPossible && !isEdit ? "일기 작성은 오늘부터 일주일 전까지만 작성 가능합니다." : content}
                     disabled={!isPossible && !isEdit}
                 ></textarea>
             </DiaryTitle>
