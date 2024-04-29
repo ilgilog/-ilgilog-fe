@@ -23,19 +23,21 @@ export const KakaoAuth = () => {
                         authorization: `Bearer ${kakaoCode}`
                     }
                 });
-                const result: TLoginResType = res?.data?.data;
-                const userInfo: {} = {
-                    userId: result?.id,
-                    nickName: result?.nickName,
-                    accessToken: result?.access_token,
-                    refreshToken: result?.refresh_token,
-                }
-                localStorage.setItem("igl-user-info", JSON.stringify(userInfo));
-
-                if(result?.firstLogin === 1){
-                    navigate("/egg-choice");
-                }else{
-                    navigate("/home");
+                if(res.data.result === "Y"){
+                    const result: TLoginResType = res?.data?.data;
+                    const userInfo: {} = {
+                        userId: result?.id,
+                        nickName: result?.nickName,
+                        accessToken: result?.access_token,
+                        refreshToken: result?.refresh_token,
+                    }
+                    localStorage.setItem("igl-user-info", JSON.stringify(userInfo));
+    
+                    if(result?.firstLogin === 1){
+                        navigate("/egg-choice");
+                    }else{
+                        navigate("/home");
+                    }
                 }
             }catch (err: any){
                 console.log(err)

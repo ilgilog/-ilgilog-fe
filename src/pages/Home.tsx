@@ -14,7 +14,7 @@ export const Home = () => {
     const [isPossible, setIsPossible] = useState<boolean>(false);
 
     const currentDate = new Date();
-    console.log(currentDate)
+    // console.log(currentDate)
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(currentDate.getDate() - 8);
 
@@ -29,7 +29,7 @@ export const Home = () => {
     }, []);
 
     useEffect(() => {
-        if(clickDate && new Date(clickDate) >= oneWeekAgo && new Date(clickDate) <= currentDate){
+        if(new Date(clickDate) >= oneWeekAgo && new Date(clickDate) <= currentDate){
             setIsPossible(true);
         }else{
             setIsPossible(false);
