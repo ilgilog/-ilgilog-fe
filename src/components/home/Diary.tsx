@@ -11,19 +11,22 @@ import { useNavigate } from "react-router-dom";
 type TProps = {
     textDate: string;
     clickDate: string;
+    handlePoint: any;
+    isPossible?: boolean;
 }
 
 export const Diary = ({
     textDate,
-    clickDate
+    clickDate,
+    handlePoint,
+    isPossible
 }: TProps) => {
 
-    const navigate = useNavigate();
+    console.log(isPossible)
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [weather, setWeather] = useState<number>(0);
     const [mood, setMood] = useState<number>(0);
-    console.log(clickDate)
     const [isEdit, setIsEdit] = useState(false);
 
     // GET 일기 조회
@@ -90,6 +93,7 @@ export const Diary = ({
                                 action: (result) => {
                                     if(result.isConfirmed){
                                         getDiary();
+                                        handlePoint();
                                     }
                                 }
                             })
@@ -129,6 +133,7 @@ export const Diary = ({
                     data={weatherData}
                     onChange={setWeather}
                     defaultData={weather}
+                    disabled={!isPossible && !isEdit}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 기분 ]">
@@ -136,6 +141,7 @@ export const Diary = ({
                     data={moodData}
                     onChange={setMood}
                     defaultData={mood}
+                    disabled={!isPossible && !isEdit}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 제목 ]">
@@ -145,6 +151,7 @@ export const Diary = ({
                     className="ml-3 text-[22px] px-3 bg-transparent outline-none border-b-[1px] border-[#c4c4c4] w-[80%]"
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
+                    disabled={!isPossible && !isEdit}
                 />
             </DiaryTitle>
             <DiaryTitle title="[ 내용 ]">
@@ -153,20 +160,25 @@ export const Diary = ({
                     className="scroll-cont resize-none ml-3 text-[20px] leading-[1] p-3 bg-transparent outline-none border-[1px] border-[#c4c4c4] w-[80%] min-h-[40vh]"
                     onChange={(e) => setContent(e.target.value)}
                     value={content}
+                    disabled={!isPossible && !isEdit}
                 ></textarea>
             </DiaryTitle>
-            
-            <div className="text-center flex justify-center">
-                <button 
-                    type="button" 
-                    className="cursor-pointer transition-all w-[70px] text-white py-[2px] rounded-lg
-                    bg-primary
-                    border-[#d6af98]
-                    border-b-[4px] hover:brightness-110 
-                    active:border-b-[2px] active:brightness-90"
-                    onClick={handleClick}
-                >{isEdit ? "일기 수정" : "일기 등록"}</button>
-            </div>
+            {(isPossible || isEdit) &&
+                <div className="text-center flex justify-center">
+                    <button 
+                        type="button" 
+                        className="cursor-pointer transition-all w-[70px] text-white py-[2px] rounded-lg
+                        bg-primary
+                        border-[#d6af98]
+                        border-b-[4px] hover:brightness-110 
+                        active:border-b-[2px] active:brightness-90
+                        disabled:bg-[#929292] disabled:border-[#646464]"
+                        onClick={handleClick}
+                        // disabled={!isPossible && !isEdit}
+                    >{isEdit ? "일기 수정" : "일기 등록"}</button>
+                </div>
+            }
+
 
             <style>
                 {`

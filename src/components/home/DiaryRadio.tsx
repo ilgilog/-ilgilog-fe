@@ -3,13 +3,15 @@ import { TDairyRadio } from "utils/data/type";
 type TProps = {
     data: [] | any;
     onChange: any;
-    defaultData: number
+    defaultData: number;
+    disabled: boolean;
 }
 
 export const DiaryRadio = ({
     data,
     onChange,
-    defaultData
+    defaultData,
+    disabled
 }: TProps) => {
 
     return(
@@ -24,6 +26,7 @@ export const DiaryRadio = ({
                         className="hidden"
                         onChange={() => {onChange(item.value)}}
                         checked={defaultData === item.value }
+                        disabled={disabled}
                     />
                     <span className="flex justify-center opacity-[.3]">{item.icon}</span>
                     <p className="text-[16px] text-[rgba(0,0,0,0.3)]">{item.key}</p>

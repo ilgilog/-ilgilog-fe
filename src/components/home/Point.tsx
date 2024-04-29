@@ -3,18 +3,11 @@ import { axiosError } from "api/axiosUtil";
 import { useEffect, useState } from "react";
 import { getPoint } from "hooks/hooks";
 
-export const Point = () => {
+type TProps = {
+    point: string;
+}
 
-    const [point, setPoint] = useState<string>("");
-
-    const handlePoint = async () => {
-        const usePoint = await getPoint();
-        setPoint(usePoint);
-    }
-
-    useEffect(() => {
-        handlePoint();
-    }, []);
+export const Point = ({point}: TProps) => {
 
     return(
         <div className="px-10 py-[20px] mb-5 flex justify-between" style={{
