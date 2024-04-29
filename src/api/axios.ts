@@ -51,6 +51,14 @@ instance.interceptors.response.use(
             response.config.headers.authorization = `Bearer ${accessToken}`;
             
             return await axios(response.config);
+        }else if(response.data.code === 2001){
+            Alert.error({ 
+                title: "에러가 발생했습니다.",
+                action: () => {
+                    localStorage.removeItem("igl-user-info");
+                    window.location.href = "/login";
+                }
+            });
         }
 
         return response;

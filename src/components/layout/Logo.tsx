@@ -5,7 +5,7 @@ export const Logo = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/home");
+        navigate("/index");
     }
 
     return(

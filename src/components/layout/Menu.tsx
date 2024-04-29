@@ -27,10 +27,11 @@ export const Menu = () => {
     const subMenuList = [
         {name: "사용 방법", link: "/howtouse"},
         {name: "내 정보", link: "/my"},
+        {name: "로그아웃", link: "/logout"},
     ]
     // 비로그인시 메뉴 - 로그인 화면
     const guestMenuList1 = [
-        {name: "홈으로", link: "/home"},
+        {name: "홈으로", link: "/index"},
         {name: "사용 방법", link: "/howtouse"},
     ]
     // 비로그인시 메뉴 - 로그인 화면 아님
@@ -39,6 +40,7 @@ export const Menu = () => {
         {name: "로그인", link: "/login"},
     ]
 
+    // 준비중 alert
     const handleClick = () => {
         Alert.error({ 
             title:  "준비중입니다!",
@@ -47,6 +49,34 @@ export const Menu = () => {
             }
         });
     }
+    // 로그인 alert
+    const handleLogin = () => {
+        if(!isLogin){
+            Alert.error({ 
+                title:  "로그인이 필요한 서비스입니다.",
+                action: () => {
+                    navigate("/login");
+                }
+            });                 
+        }
+    }
+    // 로그아웃 alert
+    const handleLogout = () => {
+        Alert.warning({ 
+            title:  "로그아웃 하시겠습니까?",
+            action: (result) => {
+                if(result.isConfirmed){
+                    localStorage.removeItem("igl-user-info");
+                    Alert.success({ 
+                        title:  "로그아웃 되었습니다.",
+                        action: () => {
+                            navigate("/login");
+                        }
+                    });   
+                }
+            }
+        });   
+    }
 
     return(
         <div className={`flex relative w-full ${path !== "/login" ? "justify-between" : "justify-end"}`}>
@@ -54,7 +84,11 @@ export const Menu = () => {
                 path !== "/login" &&
                     <nav>
                         {menuList?.map((menu, key) => (
-                            <Link to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary" : ""} rounded-md px-1 mx-2 first:ml-0 text-xl hover:font-black`} key={key} >
+                            <Link onClick={() => {
+                                if(menu.link !== "/notice"){
+                                    handleLogin();
+                                }
+                            }} to={isLogin ? `${menu?.link}` : !isLogin && menu.link === "/notice" ? `${menu?.link}` : ""} className={`${path === menu?.link ? "bg-primary" : ""} rounded-md px-1 mx-2 first:ml-0 text-xl hover:font-black`} key={key} >
                                 {menu?.name}
                             </Link>
                         ))}
@@ -65,8 +99,8 @@ export const Menu = () => {
                 {(isLogin ? subMenuList : path === "/login" ? guestMenuList1 : guestMenuList2)?.map((menu, key) => (
                     <Link
                         onClick={() => {
-                            if (menu.link === "/howtouse") {
-                                handleClick();
+                            if(menu.link === "/logout"){
+                                handleLogout();
                             }
                         }} 
                         to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary text-[#000]" : ""} rounded-md px-1 mx-2 last:mr-0 text-lg text-gray-500 hover:font-black hover:text-gray-800`} key={key} >
