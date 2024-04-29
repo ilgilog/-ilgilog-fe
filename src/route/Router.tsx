@@ -9,6 +9,7 @@ import { Notice } from "pages/Notice";
 import { Minime } from "pages/Minime";
 import { Ranking } from "pages/Ranking";
 import { Index } from "pages/Index";
+import { HowToUse } from "pages/HowToUse";
 
 export const Router = () => {
 
@@ -23,6 +24,7 @@ export const Router = () => {
                     <Route path='minime' element={<Minime />} />
                     <Route path='rank' element={<Ranking />} />
 
+                    <Route path='howtouse' element={<HowToUse />} />
                     <Route path='login' element={<Login />} />
                 </Route>
                 <Route path="/login/auth" element={<KakaoAuth />} />

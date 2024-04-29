@@ -99,9 +99,7 @@ export const Menu = () => {
                 {(isLogin ? subMenuList : path === "/login" ? guestMenuList1 : guestMenuList2)?.map((menu, key) => (
                     <Link
                         onClick={() => {
-                            if (menu.link === "/howtouse") {
-                                handleClick();
-                            } else if(menu.link === "/logout"){
+                            if(menu.link === "/logout"){
                                 handleLogout();
                             }
                         }} 
