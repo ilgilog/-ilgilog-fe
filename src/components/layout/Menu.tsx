@@ -27,6 +27,7 @@ export const Menu = () => {
     const subMenuList = [
         {name: "사용 방법", link: "/howtouse"},
         {name: "내 정보", link: "/my"},
+        {name: "로그아웃", link: "/logout"},
     ]
     // 비로그인시 메뉴 - 로그인 화면
     const guestMenuList1 = [
@@ -39,6 +40,7 @@ export const Menu = () => {
         {name: "로그인", link: "/login"},
     ]
 
+    // 준비중 alert
     const handleClick = () => {
         Alert.error({ 
             title:  "준비중입니다!",
@@ -47,6 +49,7 @@ export const Menu = () => {
             }
         });
     }
+    // 로그인 alert
     const handleLogin = () => {
         if(!isLogin){
             Alert.error({ 
@@ -56,6 +59,23 @@ export const Menu = () => {
                 }
             });                 
         }
+    }
+    // 로그아웃 alert
+    const handleLogout = () => {
+        Alert.warning({ 
+            title:  "로그아웃 하시겠습니까?",
+            action: (result) => {
+                if(result.isConfirmed){
+                    localStorage.removeItem("igl-user-info");
+                    Alert.success({ 
+                        title:  "로그아웃 되었습니다.",
+                        action: () => {
+                            navigate("/login");
+                        }
+                    });   
+                }
+            }
+        });   
     }
 
     return(
@@ -81,6 +101,8 @@ export const Menu = () => {
                         onClick={() => {
                             if (menu.link === "/howtouse") {
                                 handleClick();
+                            } else if(menu.link === "/logout"){
+                                handleLogout();
                             }
                         }} 
                         to={`${menu?.link}`} className={`${path === menu?.link ? "bg-primary text-[#000]" : ""} rounded-md px-1 mx-2 last:mr-0 text-lg text-gray-500 hover:font-black hover:text-gray-800`} key={key} >
