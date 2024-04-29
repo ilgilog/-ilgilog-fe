@@ -3,7 +3,7 @@ export type TObjetResType = {
     name: string;
     position: number;
     price: number;
-    purchase: 0|1;
+    purchase?: 0|1;
     status: 0|1;
     url: string;
 }
@@ -14,6 +14,6 @@ export type TObjetType = {
     objetName: string;
     objetUrl: string;
     amount: number;
-    buy: boolean;
+    buy?: boolean;
     use: boolean;
 }

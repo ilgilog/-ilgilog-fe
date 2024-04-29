@@ -18,7 +18,7 @@ instance.interceptors.request.use(
 
         if (!accessToken) {
             Alert.error({ 
-                title: "오류가 발생했습니다.",
+                title: "오류가 발생했습니다.\n 잠시 후에 다시 시도해주세요.",
                 action: () => {
                     window.location.href = "/login";
                 }
@@ -53,10 +53,24 @@ instance.interceptors.response.use(
             return await axios(response.config);
         }else if(response.data.code === 2001){
             Alert.error({ 
-                title: "에러가 발생했습니다.",
+                title: "에러가 발생했습니다.\n 잠시 후에 다시 시도해주세요.",
                 action: () => {
                     localStorage.removeItem("igl-user-info");
                     window.location.href = "/login";
+                }
+            });
+        }else if(response.data.code === 1001){
+            Alert.error({ 
+                title: "에러가 발생했습니다.\n 잠시 후에 다시 시도해주세요.",
+                action: () => {
+                    
+                }
+            });
+        }else if(response.data.code === 1011){
+            Alert.error({ 
+                title: "보유 중인 포인트가 부족합니다.",
+                action: () => {
+                    
                 }
             });
         }

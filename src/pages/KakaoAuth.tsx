@@ -38,12 +38,16 @@ export const KakaoAuth = () => {
                     navigate("/home");
                 }
             }catch (err: any){
-                Alert.error({ 
-                    title: err?.message,
-                    action: () => {
-                        navigate(-1);
-                    }
-                });
+                console.log(err)
+                if(err.response.status === 500){
+                    Alert.error({ 
+                        title: "서버 에러가 발생했습니다. \n 잠시 후에 다시 시도해주세요.",
+                        action: () => {
+                            navigate(-1);
+                        }
+                    });
+                }
+
             }
         }
 
