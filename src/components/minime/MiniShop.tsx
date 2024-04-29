@@ -22,7 +22,7 @@ export const MiniShop = ({
             const res = await instance.get("/api/homepy/store");
             if(res.data.result === "Y"){
                 const list = res.data.data;
-                setObjetList(list.map((item: TObjetResType) => ({
+                setObjetList(list?.map((item: TObjetResType) => ({
                     objetId: item.id,
                     objetPosition: item.position,
                     objetName: item.name,
@@ -92,7 +92,7 @@ export const MiniShop = ({
         <div>
             <h3 className="flex justify-center text-3xl mb-5">오브제</h3>
             <ul className="scroll-cont flex justify-center py-5 flex-wrap w-full m-auto h-[400px] overflow-y-scroll">
-                {objetList.map((item: TObjetType) => (
+                {objetList?.map((item: TObjetType) => (
                     <li key={item?.objetId} className="w-[25%] text-center mb-7">
                         <span className="block w-[80px] h-[80px] m-auto mb-2">
                             {item?.objetPosition === 1 || item?.objetPosition === 2 ? 
