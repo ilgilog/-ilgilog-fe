@@ -1,11 +1,14 @@
+import instance from "api/axios";
 import Minime from "../../assets/images/minime/1-step1.png";
-
 import Objet3 from "../../assets/objet/1/13.png";
 import Objet4 from "../../assets/objet/1/14.png";
 import Objet5 from "../../assets/objet/1/15.png";
 import Objet6 from "../../assets/objet/1/16.png";
 import Objet7 from "../../assets/objet/1/17.png";
 import Objet8 from "../../assets/objet/1/18.png";
+import { axiosError } from "api/axiosUtil";
+import { useEffect, useState } from "react";
+import { TMinimeType } from "api/types/minime";
 
 
 type TProps = {
@@ -19,6 +22,34 @@ export const MiniHome = ({
     width, height, boxShadow, borderRadius
 }: TProps) => {
 
+    const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""})
+    const [objet, setObjet] = useState<any>()
+
+    // GET 미니홈 조회
+    const getMiniHome = async () => {
+        try{
+            const res = await instance.get("/api/homepy");
+            if(res.data.result === "Y"){
+                console.log(res.data.data)
+                const minimeData = res.data.data.minime;
+                const objetData = res.data.data.objet;
+
+                setMinime({
+                    ...minime,
+                    minimeId: minimeData.id,
+                    minimeUrl: minimeData.url
+                });
+                setObjet(objetData);
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
+    useEffect(() => {
+        getMiniHome();
+    }, []);
+
     return(
         <div className={` m-auto overflow-hidden relative`} style={{
             borderRadius: borderRadius,
@@ -28,7 +59,7 @@ export const MiniHome = ({
         }}>
             {/* 0 */}
             <span className="z-10 absolute left-[50%] bottom-[12%] translate-x-[-50%] w-[100px]">
-                <img src={Minime} alt="egg" />
+                <img src={minime?.minimeUrl} alt="minime" />
             </span>
             {/* 1 */}
             <div className="w-full h-[80%] bg-[#f9e6d1]"></div>
