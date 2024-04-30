@@ -2,6 +2,7 @@ import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
 import { TStorageUserInfo } from "api/types/login";
 import { MyCont } from "components/myInfo/MyCont"
+import { MyPurchaseList } from "components/myInfo/MyPurchaseList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Alert } from "utils/alert"
@@ -101,13 +102,16 @@ export const MyInfo = () => {
             />
 
             <button 
-                    className="w-[100px] m-[130px_0_0_auto] cursor-pointer transition-all bg-primary text-white px-6 py-1 rounded-lg
+                    className="w-[100px] m-[80px_0_0_auto] cursor-pointer transition-all bg-primary text-white px-6 py-1 rounded-lg
                     border-[#d6af98]
                     border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
                     type="button"
                     onClick={handleClick}
                 >탈퇴하기</button>
+
+            <MyPurchaseList />
+
         </div>
     )
 }

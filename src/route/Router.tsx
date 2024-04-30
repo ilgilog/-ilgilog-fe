@@ -10,6 +10,8 @@ import { Minime } from "pages/Minime";
 import { Ranking } from "pages/Ranking";
 import { Index } from "pages/Index";
 import { HowToUse } from "pages/HowToUse";
+import { Visit } from "pages/Visit";
+import { AdminNotice } from "pages/AdminNotice";
 
 export const Router = () => {
 
@@ -23,6 +25,9 @@ export const Router = () => {
                     <Route path='notice' element={<Notice />} />
                     <Route path='minime' element={<Minime />} />
                     <Route path='rank' element={<Ranking />} />
+                    <Route path='visit' element={<Visit />} />
+
+                    <Route path='admin-notice' element={<AdminNotice />} />
 
                     <Route path='howtouse' element={<HowToUse />} />
                     <Route path='login' element={<Login />} />

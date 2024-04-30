@@ -11,7 +11,9 @@ import instance from "api/axios";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece] | any;
 
-export const HomeCalendar = () => {
+export const HomeCalendar = ({
+    isReload
+}: {isReload: any}) => {
 
     const dispatch = useDispatch();
     const today = new Date();
@@ -67,9 +69,13 @@ export const HomeCalendar = () => {
     useEffect(() => {
         handleTodayClick();
     }, []);
+    
     useEffect(() => {
         activeMonth && getMonthDiary();
     }, [activeMonth]);
+    useEffect(() => {
+        getMonthDiary();
+    }, [isReload]);
 
 
 

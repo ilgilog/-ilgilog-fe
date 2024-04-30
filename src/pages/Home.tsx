@@ -12,6 +12,7 @@ export const Home = () => {
     const clickDate = useSelector((state: StateType) => state.dateStore.clickDate);
     const [point, setPoint] = useState<string>("");
     const [isPossible, setIsPossible] = useState<boolean>(false);
+    const [isReload, setIsReload] = useState<boolean>(false);
 
     const currentDate = new Date();
     // console.log(currentDate)
@@ -29,7 +30,7 @@ export const Home = () => {
     }, []);
 
     useEffect(() => {
-        if(new Date(clickDate) >= oneWeekAgo && new Date(clickDate) <= currentDate){
+        if(new Date(clickDate) >= oneWeekAgo && new Date(clickDate) <= currentDate && currentDate){
             setIsPossible(true);
         }else{
             setIsPossible(false);
@@ -43,10 +44,13 @@ export const Home = () => {
                 clickDate={clickDate}
                 handlePoint={handlePoint}
                 isPossible={isPossible}
+                setIsReload={setIsReload}
             />
             <div className="w-[45%]">
                 <Point point={point} />
-                <HomeCalendar />
+                <HomeCalendar
+                    isReload={isReload}
+                />
             </div>
         </div>
     )

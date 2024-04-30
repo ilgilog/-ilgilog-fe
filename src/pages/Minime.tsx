@@ -40,14 +40,14 @@ export const Minime = () => {
                     minimeId: minimeData.id,
                     minimeUrl: minimeData.url
                 });
-                setObjet(objetData?.length !== 0 && objetData?.map((item: TObjetResType) => ({
+                setObjet(objetData?.length !== 0 ? objetData?.map((item: TObjetResType) => ({
                     objetId: item.id,
                     objetPosition: item.position,
                     objetName: item.name,
                     objetUrl: item.url,
                     amount: item.price,
                     use: item.status,
-                })));
+                })): []);
             }
         }catch(err: any){
             axiosError(err.message);
