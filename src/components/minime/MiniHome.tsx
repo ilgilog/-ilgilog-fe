@@ -40,9 +40,9 @@ export const MiniHome = ({
             </span>
 
             {
-                objet?.length !== 0 && objet.map((item: TObjetType, key) => (
-                    item?.objetPosition === 1 ? (<div key={item.objetId} className={`z-[1] w-full absolute top-0 h-[80%] bg-[${item?.objetUrl}]`}></div>) :
-                    item?.objetPosition === 2 ? (<div key={item.objetId} className={`z-[1] w-full absolute bottom-0 h-[20%] bg-[${item?.objetUrl}]`}></div>) : 
+                objet?.length !== 0 && objet?.map((item: TObjetType, key) => (
+                    item?.objetPosition === 1 ? (<div key={item.objetId} style={{backgroundColor: item?.objetUrl}} className={`z-[1] w-full absolute top-0 h-[80%]`}></div>) :
+                    item?.objetPosition === 2 ? (<div key={item.objetId} style={{backgroundColor: item?.objetUrl}} className={`z-[1] w-full absolute bottom-0 h-[20%]`}></div>) : 
                     item?.objetPosition === 3 ? (
                         <span key={item.objetId} className="z-[2] absolute left-[15%] top-[15%] w-[100px]">
                             <img src={item.objetUrl} alt="objet3" />

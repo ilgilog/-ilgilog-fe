@@ -96,7 +96,7 @@ export const MiniShop = ({
                     <li key={item?.objetId} className="w-[25%] text-center mb-7">
                         <span className="block w-[80px] h-[80px] m-auto mb-2">
                             {item?.objetPosition === 1 || item?.objetPosition === 2 ? 
-                                <span className={`bg-[${item?.objetUrl}] block w-full h-full`}></span> :
+                                <span style={{backgroundColor: item?.objetUrl}} className="block w-full h-full"></span> :
                                 <img src={item?.objetUrl} alt={item?.objetName} />
                             }
                         </span>

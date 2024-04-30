@@ -3,7 +3,8 @@ import IndexImg from "assets/images/etc/index-1.png";
 export const Index = () => {
     return(
         <div className="w-full text-center">
-            <h2 className="text-[40px] mb-2 mx-auto font-black rounded-lg bg-[#fafafa] w-[60%] shadow-md">일기록 - 일기쓰고 미니홈 꾸미기</h2>
+            {/* <h2 className="text-[40px] mb-2 mx-auto font-black w-[60%]">어서오세요, 일기록입니다.</h2> */}
+            <h2 className="text-[40px] mb-2 mx-auto font-black w-[60%]">일기록 - 일기쓰고 미니홈 꾸미기</h2>
             
             <h2 className="text-[25px] leading-[30px]">매일 쓰는 일기로 나를 발견하고<br/>미니미를 키우며 소중한 순간을 기록해요.</h2>
             <div className="w-[65%] text-center m-auto">
