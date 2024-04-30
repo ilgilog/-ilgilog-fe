@@ -23,6 +23,7 @@ export const NoticeRegister = ({
     getNoticeList
 }: TProps) => {
 
+    // POST/PUT 공지사항 등록/수정
     const postNoticeList = async (method: string, data: {}) => {
         try{
             const res = await instance.request({

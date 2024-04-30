@@ -1,19 +1,12 @@
 import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
+import { TNoticeResType } from "api/types/notice";
 
 type TProps = {
     noticeList: [];
     setTitle: any;
     setDescription: any;
     setNoticeId: any;
-}
-
-type TNoticeResType = {
-    id: number;
-    title: string;
-    description: string;
-    new: 0 | 1;
-    date: string;
 }
 
 export const NoticeList = ({
@@ -29,6 +22,7 @@ export const NoticeList = ({
         setNoticeId(id);
     }
 
+    // DELETE 공지사항 삭제
     const handleDelete = async (id: number) => {
         try{
             const res = await instance.delete("/api/notice", {params: {id: id}});

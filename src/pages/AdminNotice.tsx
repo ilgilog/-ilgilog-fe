@@ -11,6 +11,8 @@ export const AdminNotice = () => {
     const [description, setDescription] = useState<string>("");
     const [noticeId, setNoticeId] = useState<number>(0);
 
+
+    // GET 공지사항 불러오기
     const getNoticeList = async () => {
         try{
             const res = await instance.get("/api/notice");
