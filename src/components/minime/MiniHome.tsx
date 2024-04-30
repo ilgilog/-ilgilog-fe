@@ -1,15 +1,5 @@
-import instance from "api/axios";
-import Minime from "../../assets/images/minime/1-step1.png";
-import Objet3 from "../../assets/objet/1/13.png";
-import Objet4 from "../../assets/objet/1/14.png";
-import Objet5 from "../../assets/objet/1/15.png";
-import Objet6 from "../../assets/objet/1/16.png";
-import Objet7 from "../../assets/objet/1/17.png";
-import Objet8 from "../../assets/objet/1/18.png";
-import { axiosError } from "api/axiosUtil";
-import { useEffect, useState } from "react";
 import { TMinimeType } from "api/types/minime";
-import { TObjetType } from "api/types/objet";
+import { TObjetResType, TObjetType } from "api/types/objet";
 
 
 type TProps = {
@@ -17,8 +7,8 @@ type TProps = {
     height: number;
     boxShadow: string;
     borderRadius: string|number;
-    minime?: TMinimeType;
-    objet: [];
+    minime: TMinimeType;
+    objet: TObjetType[];
 }
 
 export const MiniHome = ({
@@ -36,8 +26,10 @@ export const MiniHome = ({
         }}>
             {/* 0 */}
             <span className="z-10 absolute left-[50%] bottom-[12%] translate-x-[-50%] w-[100px]">
-                <img src={minime?.minimeUrl} alt="minime" />
+                <img src={minime?.minimeUrl} alt="minime" className="z-10" />
+                <span className="z-[-1] absolute left-[50%] bottom-[-5%] translate-x-[-50%] block w-[70px] h-[25px] bg-[#a2a2a23d] rounded-[50%]"></span>
             </span>
+            
 
             {
                 objet?.length !== 0 && objet?.map((item: TObjetType, key) => (

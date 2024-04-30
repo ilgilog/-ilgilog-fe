@@ -48,7 +48,7 @@ export const tokenRefresh = async (instance: any) => {
 // axios error
 export const axiosError = (message: string) => {
     Alert.error({ 
-        title: message,
+        title: `알 수 없는 오류가 발생했습니다. \n(${message})`,
         action: (result) => {
             if(result.isConfirmed){
                 localStorage.removeItem("igl-user-info");

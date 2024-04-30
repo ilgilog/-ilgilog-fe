@@ -1,4 +1,5 @@
 import instance from "api/axios";
+import { axiosError } from "api/axiosUtil";
 import { Alert } from "utils/alert";
 
 type TProps = {
@@ -21,7 +22,7 @@ export const MiniShare = ({
                 return false;
             }
         }catch(err: any){
-
+            axiosError(err.message);
         }
     }
 

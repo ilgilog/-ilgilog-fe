@@ -1,31 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import Egg1 from "../../assets/images/minime/1-egg.png";
-import Egg2 from "../../assets/images/minime/2-egg.png";
-import Egg3 from "../../assets/images/minime/3-egg.png";
 import { useEffect, useState } from "react";
 import { Alert } from "utils/alert";
 import { axiosError } from "api/axiosUtil";
 import instance from "api/axios";
 
 export const EggCont = () => {
-
-    const eggData = [
-        {
-            id: "1",
-            title: "egg1",
-            img: Egg1
-        },
-        {
-            id: "2",
-            title: "egg2",
-            img: Egg2
-        },
-        {
-            id: "3",
-            title: "egg3",
-            img: Egg3
-        },
-    ]
 
     const navigate = useNavigate();
     const [eggList, setEggList] = useState<any[]>([]);
