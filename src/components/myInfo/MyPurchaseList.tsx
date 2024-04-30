@@ -16,7 +16,7 @@ export const MyPurchaseList = () => {
         try{
             const res = await instance.get("/api/user/list");
             if(res.data.result === "Y"){
-                setList(res.data.data);
+                setList((res.data.data)?.reverse());
             }
         }catch(err: any){
             axiosError(err.message);
@@ -39,7 +39,7 @@ export const MyPurchaseList = () => {
                 </li>
                 {list.length !== 0 && list?.map((item: TPurchaseResType, key) => (
                     <li className="flex items-center text-center mt-1" key={item?.oid}>
-                        <span className="block w-[10%]">{key + 1}</span>
+                        <span className="block w-[10%]">{list.length - key}</span>
                         <span className="block w-[20%]">{item?.date}</span>
                         <span className="block w-[40%]">{(item?.price).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} Point</span>
                         <span className="block w-[30%]">{item?.o_name}</span>

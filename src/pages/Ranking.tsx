@@ -52,7 +52,7 @@ export const Ranking = () => {
 
     return(
         <div>
-            <h2 className="flex justify-center text-3xl mt-3 mb-2">미니홈 랭킹</h2>
+            <h2 className="flex justify-center text-3xl mt-3">미니홈 랭킹</h2>
             <small className="block text-center text-[18px] text-[#585858]">
                 * {!isPoint ? "좋아요를 많이 받은 순서대로 나타납니다." : "사용한 Point가 많은 순서대로 나타납니다."}
             </small>

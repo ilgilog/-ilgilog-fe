@@ -77,7 +77,7 @@ export const Visit = () => {
                 <div className="w-1/2 text-center">
                     <span className="block text-xl">사용 Point</span>
                     <span className="line"></span>
-                    <span className="block text-2xl">3600 Point</span>
+                    <span className="block text-2xl">3,600 Point</span>
                 </div>
             </div>
 
