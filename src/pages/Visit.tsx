@@ -61,7 +61,7 @@ export const Visit = () => {
             />
 
             <div className="flex align-top justify-center mt-5 w-[550px] m-auto">
-                <div className="w-1/2 text-center" style={{borderRight: "1px solid rgb(183 183 183)"}}>
+                <div className="w-1/2 text-center" style={{borderRight: "1px solid rgb(183, 183, 183)"}}>
                     <span className="block text-xl mx-10">좋아요</span>
                     <span className="line"></span>
                     <span className="flex justify-between items-center">
