@@ -13,13 +13,15 @@ type TProps = {
     clickDate: string;
     handlePoint: any;
     isPossible?: boolean;
+    setIsReload?: any;
 }
 
 export const Diary = ({
     textDate,
     clickDate,
     handlePoint,
-    isPossible
+    isPossible,
+    setIsReload
 }: TProps) => {
 
     const [title, setTitle] = useState<string>("");
@@ -77,10 +79,10 @@ export const Diary = ({
         }
     }
 
-    // 일기 등록 버튼
+    // 일기 등록/수정 버튼
     const handleClick = () => {
         if(title !== "" && content !== "" && weather !== 0 && mood !== 0){
-            // 일기 등록
+            // 일기 등록/수정
             Alert.warning({ 
                 title:  `${textDate}의 일기를 \n ${isEdit ? "수정" : "등록"}하시겠습니까?`,
                 action: async (result) => {
@@ -93,6 +95,11 @@ export const Diary = ({
                                     if(result.isConfirmed){
                                         getDiary();
                                         handlePoint();
+                                        setIsReload(true);
+                                        
+                                        setTimeout(() => {
+                                            setIsReload(false);
+                                        }, 500);
                                     }
                                 }
                             })
@@ -105,8 +112,8 @@ export const Diary = ({
                 title: `${
                     title === "" ? "일기 제목을 적어주세요." : 
                     content === "" ? "일기 내용을 적어주세요." : 
-                    weather === 0 ? "날씨를 선택해주세요." : 
-                    mood === 0 ? "기분을 선택해주세요." : null
+                    weather === 0 ? "오늘의 날씨를 선택해주세요." : 
+                    mood === 0 ? "오늘의 기분을 선택해주세요." : null
                 }`
             });
         }
