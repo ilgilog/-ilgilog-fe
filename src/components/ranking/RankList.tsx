@@ -18,6 +18,10 @@ export const RankList = ({
         navigate(`/visit?uid=${id}&nick=${nick}`);
     }
 
+    const handleLike = (id: number) => {
+        
+    }
+
     return(
         <ul className="ml-[-34px] flex justify-between">
             {rankingTop?.map((item: TRankTopType, key) => (
@@ -56,8 +60,8 @@ export const RankList = ({
                         <div className="flex justify-between items-center px-5 pt-5 border-t-[1px] border-solid border-gray-400">
                             {!isPoint ? 
                                 <span className="flex justify-between items-center w-[30%]">
-                                    <input type="checkbox" id="favorite" name="favorite-checkbox" value="favorite-button" className="favorite-input" />
-                                    <label htmlFor="favorite" className="container favorite-label">
+                                    <input type="checkbox" id={`like-${item?.uid}`} name="favorite-checkbox" value="favorite-button" className="favorite-input" />
+                                    <label htmlFor={`like-${item?.uid}`} className="container favorite-label">
                                         <div className="flex justify-start items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                             <span className="text-3xl ml-2">{item?.like && item?.like}</span>

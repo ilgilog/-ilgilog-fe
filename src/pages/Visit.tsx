@@ -5,6 +5,7 @@ import { TObjetResType } from "api/types/objet";
 import { MiniHome } from "components/minime/MiniHome";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Alert } from "utils/alert";
 
 export const Visit = () => {
 
@@ -15,13 +16,14 @@ export const Visit = () => {
 
     const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""});
     const [objet, setObjet] = useState<[]>([]);
+    const [isLike, setIsLike] = useState<boolean>(false);
+    // console.log(isLike)
 
     // GET 미니홈 조회
     const getMiniHome = async () => {
         try{
             const res = await instance.get("/api/homepy", {params: {id: uid}});
             if(res.data.result === "Y"){
-                console.log(res.data.data)
                 const minimeData = res.data.data.minime;
                 const objetData = res.data.data.objet;
 
@@ -38,9 +40,44 @@ export const Visit = () => {
                     amount: item.price,
                     use: item.status,
                 })): []);
+                // setIsLike(true)
             }
         }catch(err: any){
             axiosError(err.message);
+        }
+    }
+
+    // PUT 좋아요/취소
+    const handleLike = async (like: boolean) => {
+        const reqData = {
+            id: Number(uid),
+            like: like ? 1 : 0
+        }
+        try{
+            const res = await instance.put("/api/homepy/like", reqData);
+            if(res.data.result === "Y"){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
+    // like checkbox handler
+    const handleCheck = async () => {
+        setIsLike(!isLike);
+        const bool = await handleLike(!isLike);
+        if(bool){
+            Alert.success({
+                title: `${!isLike ? "좋아요를 추가했습니다." : "좋아요를 해제했습니다."}`,
+                action: (result) => {
+                    if(result.isConfirmed){
+                        getMiniHome();
+                    }
+                }
+            })
         }
     }
 
@@ -65,8 +102,8 @@ export const Visit = () => {
                     <span className="block text-xl mx-10">좋아요</span>
                     <span className="line"></span>
                     <span className="flex justify-between items-center">
-                        <input type="checkbox" id="favorite" name="favorite-checkbox" value="favorite-button" className="favorite-input" />
-                        <label htmlFor="favorite" className="container favorite-label">
+                        <input type="checkbox" id={`like-${uid}`} name="favorite-checkbox" checked={isLike} onChange={handleCheck}  className="favorite-input" />
+                        <label htmlFor={`like-${uid}`} className="container favorite-label">
                             <div className="flex justify-center items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span className="text-2xl ml-2">34</span>
