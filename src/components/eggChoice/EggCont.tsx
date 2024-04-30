@@ -17,7 +17,6 @@ export const EggCont = () => {
             if(res.data.result === "Y"){
                 setEggList(res.data.data);
             }
-            console.log(res)
         }catch(err: any){
             axiosError(err.message);
         }
@@ -26,7 +25,6 @@ export const EggCont = () => {
     const postEggChoice = async () => {
         try{
             const res = await instance.post("/api/user/minime", {id: eggId});
-            console.log(res)
             if(res.data.result === "Y"){
                 return true;
             }else{
