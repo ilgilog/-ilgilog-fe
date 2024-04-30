@@ -48,7 +48,6 @@ export const MyInfo = () => {
     const deleteUser = async () => {
         try{
             const res = await instance.delete("/api/user/secession");
-            console.log(res)
             if(res.data.result === "Y"){
                 return true;
             }else{

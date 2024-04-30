@@ -17,7 +17,6 @@ export const Visit = () => {
     const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""});
     const [objet, setObjet] = useState<[]>([]);
     const [isLike, setIsLike] = useState<boolean>(false);
-    // console.log(isLike)
 
     // GET 미니홈 조회
     const getMiniHome = async () => {

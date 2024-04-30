@@ -13,9 +13,10 @@ export const Home = () => {
     const [point, setPoint] = useState<string>("");
     const [isPossible, setIsPossible] = useState<boolean>(false);
     const [isReload, setIsReload] = useState<boolean>(false);
+    const clickDateForm = new Date(clickDate)
+    const newClickDateForm = new Date(clickDateForm.getFullYear(), clickDateForm.getMonth(), clickDateForm.getDate());
 
     const currentDate = new Date();
-    // console.log(currentDate)
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(currentDate.getDate() - 8);
 
@@ -30,7 +31,7 @@ export const Home = () => {
     }, []);
 
     useEffect(() => {
-        if(new Date(clickDate) >= oneWeekAgo && new Date(clickDate) <= currentDate && currentDate){
+        if(newClickDateForm >= oneWeekAgo && newClickDateForm <= currentDate){
             setIsPossible(true);
         }else{
             setIsPossible(false);

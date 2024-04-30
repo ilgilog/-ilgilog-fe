@@ -15,7 +15,6 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 export const NoticeCont = () => {
 
     const [noticeList, setNoticeList] = useState<[]>([]);
-    console.log(noticeList)
 
     // GET 공지사항 불러오기
     const getNoticeList = async () => {
@@ -32,15 +31,6 @@ export const NoticeCont = () => {
     useEffect(() => {
         getNoticeList();
     }, [])
-
-    const noticeDummy = [
-        {
-            title: "새로운 서비스 업데이트 안내",
-            content: "저희는 새로운 기능과 개선된 서비스로 여러분에게 더 나은 경험을 제공하기 위해 노력하고 있습니다. 이에 따라 다음과 같은 내용으로 업데이트가 예정되어 있습니다:\n새로운 기능 추가:\nXYZ 기능을 도입하여 사용자들이 더욱 쉽게 ABC를 할 수 있도록 지원합니다.\n인터페이스 개선:\nUI/UX를 개선하여 사용자들이 서비스를 보다 편리하게 이용할 수 있도록 합니다.\n버그 수정:\n이전 버전에서 발견된 일부 버그들을 수정하여 서비스의 안정성을 향상시켰습니다.\n업데이트 일정은 다음과 같습니다:\n일자: MM월 DD일 (월요일)\n시간: 오전 HH:MM\n본 업데이트로 인해 일시적인 서비스 중단이 있을 수 있으며, 이에 대한 양해와 너그러운 이해를 부탁드립니다. \n감사합니다.",
-            date: "2024.03.16",
-            new: true
-        }
-    ]
 
     return (
         <div className='w-[80%] m-auto'>
@@ -61,7 +51,7 @@ export const NoticeCont = () => {
                                     </h3>
                                     
                                 </div>
-                                <span className="ml-12 text-[#878787]">{item?.date}</span>
+                                <span className="ml-10 text-[#878787]">{item?.date}</span>
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         <AccordionItemPanel>
@@ -104,7 +94,9 @@ export const NoticeCont = () => {
                             padding: 0.5rem;
                             color: rgba(255, 255, 255, 1);
                         }
-                        
+                        .accordion__panel{
+                            padding: 5px 20px 20px;
+                        }
                         .icon svg {
                             height: 1rem;
                             width: 1rem;
