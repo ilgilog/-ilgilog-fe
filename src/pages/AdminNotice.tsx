@@ -35,7 +35,7 @@ export const AdminNotice = () => {
                 title: "비정상적인 접근입니다.",
                 action: (result) => {
                     if(result.isConfirmed){
-                        navigate("/index");
+                        navigate("/");
                     }
                 }
             })

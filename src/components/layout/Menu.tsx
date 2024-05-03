@@ -31,7 +31,7 @@ export const Menu = () => {
     ]
     // 비로그인시 메뉴 - 로그인 화면
     const guestMenuList1 = [
-        {name: "홈으로", link: "/index"},
+        {name: "홈으로", link: "/"},
         {name: "사용 방법", link: "/howtouse"},
     ]
     // 비로그인시 메뉴 - 로그인 화면 아님

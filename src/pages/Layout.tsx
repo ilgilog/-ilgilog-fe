@@ -7,12 +7,12 @@ export const Layout = () => {
     const navigate: NavigateFunction = useNavigate();
     const location: any = useLocation();
 
-    useEffect(() => {
-        // 페이지 분기처리
-        if(location.pathname === "/"){
-            navigate("/index");
-        }
-    }, [location, navigate]);
+    // useEffect(() => {
+    //     // 페이지 분기처리
+    //     if(location.pathname === "/"){
+    //         navigate("/index");
+    //     }
+    // }, [location, navigate]);
 
     return(
         <div className="flex flex-wrap justify-center">
