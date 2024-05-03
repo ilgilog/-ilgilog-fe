@@ -18,6 +18,8 @@ export const Visit = () => {
     const [minime, setMinime] = useState<TMinimeType>({minimeId: 0, minimeUrl: ""});
     const [objet, setObjet] = useState<[]>([]);
     const [isLike, setIsLike] = useState<boolean>(false);
+    const [likeCount, setLikeCount] = useState<number>(0);
+    const [point, setPoint] = useState<number>(0);
 
     // GET 미니홈 조회
     const getMiniHome = async () => {
@@ -26,6 +28,9 @@ export const Visit = () => {
             if(res.data.result === "Y"){
                 const minimeData = res.data.data.minime;
                 const objetData = res.data.data.objet;
+                const likeStatusData = res.data.data.status;
+                const likeData = res.data.data.like;
+                const pointData = res.data.data.point;
 
                 setMinime({
                     ...minime,
@@ -40,7 +45,9 @@ export const Visit = () => {
                     amount: item.price,
                     use: item.status,
                 })): []);
-                // setIsLike(true)
+                setIsLike(likeStatusData === 1);
+                setLikeCount(likeData);
+                setPoint(pointData);
             }
         }catch(err: any){
             axiosError(err.message);
@@ -116,7 +123,7 @@ export const Visit = () => {
                         <label htmlFor={`like-${uid}`} className="container favorite-label">
                             <div className="flex justify-center items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                <span className="text-2xl ml-2">34</span>
+                                <span className="text-2xl ml-2">{likeCount}</span>
                             </div>
                         </label>
                     </span>
@@ -124,7 +131,7 @@ export const Visit = () => {
                 <div className="w-1/2 text-center">
                     <span className="block text-xl">사용 Point</span>
                     <span className="line"></span>
-                    <span className="block text-2xl">3,600 Point</span>
+                    <span className="block text-2xl">{point?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} Point</span>
                 </div>
             </div>
 
