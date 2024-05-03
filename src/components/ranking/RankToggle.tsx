@@ -10,6 +10,7 @@ export const RankToggle = ({
 
     const handleChange = () => {
         setIsPoint(!isPoint);
+        localStorage.setItem("igl-rank-boolean", JSON.stringify(!isPoint));
     }
 
     return(

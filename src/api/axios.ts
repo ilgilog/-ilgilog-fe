@@ -56,6 +56,7 @@ instance.interceptors.response.use(
                 title: "에러가 발생했습니다.\n 잠시 후에 다시 시도해주세요.",
                 action: () => {
                     localStorage.removeItem("igl-user-info");
+                    localStorage.removeItem("igl-rank-boolean");
                     window.location.href = "/login";
                 }
             });

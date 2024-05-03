@@ -4,12 +4,13 @@ import { TMinimeType } from "api/types/minime";
 import { TObjetResType } from "api/types/objet";
 import { MiniHome } from "components/minime/MiniHome";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Alert } from "utils/alert";
 
 export const Visit = () => {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const uid = searchParams.get('uid');
     const nick = searchParams.get('nick');
@@ -80,12 +81,22 @@ export const Visit = () => {
         }
     }
 
+    const hadleBack = () => {
+        navigate(-1);
+    }
+
     useEffect(() => {
         getMiniHome();
     }, [])
 
     return(
-        <div>
+        <div className="relative">
+            <div onClick={hadleBack} className="absolute left-0 top-5 flex justify-start items-center cursor-pointer ml-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                </svg>
+                <span className="text-xl ml-2">뒤로가기</span>
+            </div>
             <h3 className="text-center text-2xl mb-5">어서오세요!<br/><b className="text-3xl">{nick}</b> 님의 미니홈입니다.</h3>
             <MiniHome
                 width={550}

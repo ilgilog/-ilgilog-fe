@@ -92,14 +92,15 @@ export const MiniShop = ({
         <div>
             <h3 className="flex justify-center text-3xl mb-5">오브제</h3>
             <ul className="scroll-cont flex justify-center py-5 flex-wrap w-full m-auto h-[400px] overflow-y-scroll">
-                {objetList?.map((item: TObjetType) => (
+                {objetList?.map((item: TObjetType, key) => (
                     <li key={item?.objetId} className="w-[25%] text-center mb-7">
-                        <span className="block w-[80px] h-[80px] m-auto mb-2">
+                        <span className="block w-[80px] h-[80px] m-auto ">
                             {item?.objetPosition === 1 || item?.objetPosition === 2 ? 
                                 <span style={{backgroundColor: item?.objetUrl}} className="block w-full h-full"></span> :
                                 <img src={item?.objetUrl} alt={item?.objetName} />
                             }
                         </span>
+                        <span className="block mb-1 text-[16px] text-[#898989]">{item?.objetName}</span>
                         {
                             item?.buy !== true ? 
                                 <button 

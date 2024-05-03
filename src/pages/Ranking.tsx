@@ -8,7 +8,8 @@ import { Alert } from "utils/alert";
 
 export const Ranking = () => {
     
-    const [isPoint, setIsPoint] = useState<boolean>(false);
+    const isPointStorage: string | null = localStorage.getItem("igl-rank-boolean");
+    const [isPoint, setIsPoint] = useState<boolean>(isPointStorage === "true" ? true : false);
     const [rankingTop, setRankingTop] = useState<[]>([]);
     const [rankingOther, setRankingOther] = useState<[]>([]);
 
@@ -23,7 +24,6 @@ export const Ranking = () => {
                     const other = rankList.slice(3);
                     setRankingTop(topThree);
                     setRankingOther(other);
-                    console.log(rankList)
                 }else{
                     setRankingTop(rankList);
                     setRankingOther([]);
@@ -73,6 +73,7 @@ export const Ranking = () => {
             <RankList
                 isPoint={isPoint}
                 rankingTop={rankingTop}
+                getRankingList={getRankingList}
             />
             <RankingListOther
                 isPoint={isPoint}

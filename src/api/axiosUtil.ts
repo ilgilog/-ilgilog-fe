@@ -28,6 +28,7 @@ export const tokenRefresh = async (instance: any) => {
         localStorage.setItem('igl-user-info', JSON.stringify(newUserInfo));
     }else if(res.data.result === "N" && res.data?.code === 1004){
         localStorage.removeItem("igl-user-info");
+        localStorage.removeItem("igl-rank-boolean");
         Alert.error({ 
             title: "로그인 시간이 만료되었습니다.\n 재로그인이 필요합니다.",
             action: () => {
@@ -36,6 +37,7 @@ export const tokenRefresh = async (instance: any) => {
         });
     }else if(res.data.result === "N" && res.data?.code === 1005){
         localStorage.removeItem("igl-user-info");
+        localStorage.removeItem("igl-rank-boolean");
         Alert.error({ 
             title: "로그인 오류가 발생했습니다.\n 잠시 후에 다시 시도해주세요.",
             action: () => {
@@ -52,6 +54,7 @@ export const axiosError = (message: string) => {
         action: (result) => {
             if(result.isConfirmed){
                 localStorage.removeItem("igl-user-info");
+                localStorage.removeItem("igl-rank-boolean");
                 window.location.href = "/login";
             }
         }
