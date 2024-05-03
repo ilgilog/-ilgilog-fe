@@ -24,6 +24,7 @@ export const Diary = ({
     setIsReload
 }: TProps) => {
 
+    const navigate = useNavigate();
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [weather, setWeather] = useState<number>(0);
@@ -70,6 +71,7 @@ export const Diary = ({
                 data: requestData
             });
             if(res.data.result === "Y"){
+                method === "POST" && getXp();
                 return true;
             }else{
                 return false;
@@ -116,6 +118,44 @@ export const Diary = ({
                     mood === 0 ? "오늘의 기분을 선택해주세요." : null
                 }`
             });
+        }
+    }
+
+    // GET 일기 등록된 카운트 조회
+    const getXp = async () => {
+        try{
+            const res = await instance.get("/api/user/xp");
+            if(res.data.result === "Y"){
+                const xp = res.data.data.xp;
+                if(xp === 7){
+                    postMinimeUpdate(1);
+                }else if(xp === 40){
+                    postMinimeUpdate(2);
+                }else if(xp === 100){
+                    postMinimeUpdate(3);
+                }
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }
+
+    // POST 미니미 진화 데이터
+    const postMinimeUpdate = async (step: number | null) => {
+        try{
+            const res = await instance.post("/api/user/xp", {step: step});
+            if(res.data.result === "Y"){
+                Alert.success({
+                    title: "미니미가 진화했어요! \n 미니홈을 확인해주세요!",
+                    action: (result) => {
+                        if(result.isConfirmed){
+                            navigate("/minime")
+                        }
+                    }
+                })
+            }
+        }catch(err: any){
+            axiosError(err.message);
         }
     }
 

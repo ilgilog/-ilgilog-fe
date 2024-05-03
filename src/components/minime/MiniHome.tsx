@@ -27,7 +27,9 @@ export const MiniHome = ({
             {/* 0 */}
             <span className="z-10 absolute left-[50%] bottom-[12%] translate-x-[-50%] w-[100px]">
                 <img src={minime?.minimeUrl} alt="minime" className="z-10" />
-                <span className="z-[-1] absolute left-[50%] bottom-[-5%] translate-x-[-50%] block w-[70px] h-[25px] bg-[#a2a2a23d] rounded-[50%]"></span>
+                {(minime?.minimeId === 10 || minime?.minimeId === 20 || minime?.minimeId === 30) &&
+                    <span className="z-[-1] absolute left-[50%] bottom-[-5%] translate-x-[-50%] block w-[70px] h-[25px] bg-[#a2a2a23d] rounded-[50%]"></span>
+                }
             </span>
             
 
