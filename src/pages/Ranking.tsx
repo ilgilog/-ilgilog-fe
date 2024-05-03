@@ -23,6 +23,7 @@ export const Ranking = () => {
                     const other = rankList.slice(3);
                     setRankingTop(topThree);
                     setRankingOther(other);
+                    console.log(rankList)
                 }else{
                     setRankingTop(rankList);
                     setRankingOther([]);
