@@ -49,7 +49,7 @@ export const RankList = ({
 
     return(
         <ul className="ml-[-34px] flex justify-between">
-            {rankingTop?.map((item: TRankTopType, key) => (
+            {rankingTop?.length !== 0 && rankingTop?.map((item: TRankTopType, key) => (
                 <li className="scale-75 w-[450px] m-auto" key={key}>
                     <div className="w-full py-5 relative" style={{
                         borderRadius: "30px",
