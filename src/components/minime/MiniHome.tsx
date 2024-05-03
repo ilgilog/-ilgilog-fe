@@ -53,17 +53,17 @@ export const MiniHome = ({
                         </span>
                     ) : 
                     item?.objetPosition === 6 ? (
-                        <span key={item.objetId} className="z-[2] absolute left-[13%] bottom-[15%] w-[90px]">
+                        <span key={item.objetId} className="z-[2] absolute left-[17%] bottom-[15%] w-[100px]">
                             <img src={item.objetUrl} alt="objet6" />
                         </span>
                     ) : 
                     item?.objetPosition === 7 ? (
-                        <span key={item.objetId} className="z-[2] absolute left-[30%] bottom-[15%] w-[60px]">
+                        <span key={item.objetId} className="z-[2] absolute left-[86%] bottom-[15%] w-[60px]">
                             <img src={item.objetUrl} alt="objet7" />
                         </span>
                     ) : 
                     item?.objetPosition === 8 ? (
-                        <span key={item.objetId} className="z-[2] absolute right-[12%] bottom-[15%] w-[120px]">
+                        <span key={item.objetId} className="z-[2] absolute right-[17%] bottom-[15%] w-[120px]">
                             <img src={item.objetUrl} alt="objet8" />
                         </span>
                     ) : null
