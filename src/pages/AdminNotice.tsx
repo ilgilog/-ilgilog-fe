@@ -63,6 +63,7 @@ export const AdminNotice = () => {
                         setTitle={setTitle}
                         setDescription={setDescription}
                         setNoticeId={setNoticeId}
+                        getNoticeList={getNoticeList}
                     />
                 </div>
             }

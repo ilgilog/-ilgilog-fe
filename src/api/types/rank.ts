@@ -6,6 +6,7 @@ export type TRankTopType = {
         url: string;
     };
     nickName: string;
+    likeStatus: 0 | 1;
     objet: [];
     uid: number;
 }

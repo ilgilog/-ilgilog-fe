@@ -1,19 +1,22 @@
 import instance from "api/axios";
 import { axiosError } from "api/axiosUtil";
 import { TNoticeResType } from "api/types/notice";
+import { Alert } from "utils/alert";
 
 type TProps = {
     noticeList: [];
     setTitle: any;
     setDescription: any;
     setNoticeId: any;
+    getNoticeList: any;
 }
 
 export const NoticeList = ({
     noticeList,
     setTitle,
     setDescription,
-    setNoticeId
+    setNoticeId,
+    getNoticeList
 }: TProps) => {
 
     const fixedNotice = (title: string, des: string, id: number) => {
@@ -25,9 +28,16 @@ export const NoticeList = ({
     // DELETE 공지사항 삭제
     const handleDelete = async (id: number) => {
         try{
-            const res = await instance.delete("/api/notice", {params: {id: id}});
+            const res = await instance.delete("/api/notice", {data: {id: id}});
             if(res.data.result === "Y"){
-                console.log(res.data)
+                Alert.success({
+                    title: "공지사항 삭제 성공했습니다.",
+                    action: (result) => {
+                        if(result.isConfirmed){
+                            getNoticeList();
+                        }
+                    }
+                })
             }
         }catch(err: any){
             axiosError(err.message);

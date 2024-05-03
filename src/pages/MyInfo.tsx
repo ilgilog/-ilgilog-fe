@@ -67,6 +67,7 @@ export const MyInfo = () => {
                     const delBool = await deleteUser();
                     if(delBool){
                         localStorage.removeItem("igl-user-info");
+                        localStorage.removeItem("igl-rank-boolean");
                         Alert.success({
                             title:  "탈퇴가 완료되었습니다.",
                             action: (result) => {

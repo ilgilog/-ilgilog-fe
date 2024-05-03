@@ -67,12 +67,15 @@ export const Menu = () => {
             action: (result) => {
                 if(result.isConfirmed){
                     localStorage.removeItem("igl-user-info");
+                    localStorage.removeItem("igl-rank-boolean");
                     Alert.success({ 
                         title:  "로그아웃 되었습니다.",
                         action: () => {
                             navigate("/login");
                         }
                     });   
+                }else if(result.isDismissed){
+                    navigate(-1);
                 }
             }
         });   

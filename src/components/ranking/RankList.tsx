@@ -1,16 +1,21 @@
+import instance from "api/axios";
+import { axiosError } from "api/axiosUtil";
 import { TObjetResType } from "api/types/objet";
 import { TRankTopType } from "api/types/rank";
 import { MiniHome } from "components/minime/MiniHome"
 import { useNavigate } from "react-router-dom";
+import { Alert } from "utils/alert";
 
 type TProps = {
     isPoint: boolean;
     rankingTop: [];
+    getRankingList: any;
 }
 
 export const RankList = ({
     isPoint,
-    rankingTop
+    rankingTop,
+    getRankingList
 }: TProps) => {
 
     const navigate = useNavigate();
@@ -18,9 +23,29 @@ export const RankList = ({
         navigate(`/visit?uid=${id}&nick=${nick}`);
     }
 
-    const handleLike = (id: number) => {
+    // PUT 좋아요/취소
+    const handleLike = async (uid: number, like: number) => {
+        const reqData = {
+            id: Number(uid),
+            like: like
+        }
         
-    }
+        try{
+            const res = await instance.put("/api/homepy/like", reqData);
+            if(res.data.result === "Y"){
+                Alert.success({
+                    title: `${like === 1 ? "좋아요를 추가했습니다." : "좋아요를 해제했습니다."}`,
+                    action: (result) => {
+                        if(result.isConfirmed){
+                            getRankingList();
+                        }
+                    }
+                })
+            }
+        }catch(err: any){
+            axiosError(err.message);
+        }
+    }    
 
     return(
         <ul className="ml-[-34px] flex justify-between">
@@ -60,7 +85,7 @@ export const RankList = ({
                         <div className="flex justify-between items-center px-5 pt-5 border-t-[1px] border-solid border-gray-400">
                             {!isPoint ? 
                                 <span className="flex justify-between items-center w-[30%]">
-                                    <input type="checkbox" id={`like-${item?.uid}`} name="favorite-checkbox" value="favorite-button" className="favorite-input" />
+                                    <input type="checkbox" id={`like-${item?.uid}`} name="favorite-checkbox" checked={item?.likeStatus === 1} onChange={() => handleLike(item?.uid, item?.likeStatus === 1 ? 0 : 1)} value="favorite-button" className="favorite-input" />
                                     <label htmlFor={`like-${item?.uid}`} className="container favorite-label">
                                         <div className="flex justify-start items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
